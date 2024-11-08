@@ -7,5 +7,26 @@ public class Stage : MonoBehaviour
 {
     public List<Button> buttons;
 
+    private void Start()
+    {
+        for(int i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].interactable = true;
+        }
+    }
+    protected virtual void OnEnable()
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].interactable = true;
+        }
+    }
 
+    void CantButton()//모든 버튼을 비활성화.
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].interactable = false;
+        }
+    }
 }
