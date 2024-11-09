@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 public class StageManager : MonoBehaviour
 {
+    public BackViewManager backViewManager;
+    public CharacterManager characterManager;
+
     public int RoomNum;//방의 번호
     string RoomName;//방의 이름
     [SerializeField]
     List<Stage> StageList;
     int stageType; //0: Tutorial, 1: Starting, 2:QuietHideout,  3: BloodCave, 4: DampCave, 5: ForkedRoad, 6: CaveAlley, 7: EndPoint.
     int lastStageType;//이전 스테이지의 타입.
-    int nextStageType;//다음 스테이지의 타입.
+    public int nextStageType;//다음 스테이지의 타입.
 
     public bool duringCombat;//전투중인지 여부.
 
@@ -23,6 +27,8 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         startStage();
+        GameManager.Instance.stageManager = this;
+        GameManager.Instance.characterManager = characterManager;
     }
 
     private void Update()
@@ -37,47 +43,48 @@ public class StageManager : MonoBehaviour
         EndPercent = 0;
         StartStageEvent();//스테이지의 버튼 교체 + 스테이지 전용 기믹 시작.
     }
-    async void UpdateStage()//다음 스테이지로 업데이트 (배경,버튼선택지,진행사항)
+    void UpdateStage()//다음 스테이지로 업데이트 (배경,버튼선택지,진행사항)
     {
         Debug.Log("다음 스테이지로 이동");
-        //캐릭터가 앞으로 걷는 애니메이션
-        //기존 뒷 배경이 블랙아웃 하며 뒤로 가는 동작
-        await UniTask.Delay(1000);
-        //잠시후 화이트 아웃 하며 새로운 스테이지의 배경이 나오는 동작.
-        await UniTask.Delay(1000);
-        lastStageType = stageType;
-        stageType = nextStageType;
-        switch (stageType)
+        backViewManager.TransitionToNextStage(async () => //async
         {
-            case 0:
-                RoomName = "StartingPoint";
-                break;
-            case 1:
-                RoomName = "StartingPoint";
-                break;
-            case 2:
-                RoomName = "QuietHideout";
-                break;
-            case 3:
-                RoomName = "BloodCave";
-                break;
-            case 4:
-                RoomName = "DampCave";
-                break;
-            case 5:
-                RoomName = "ForkedRoad";
-                break;
-            case 6:
-                RoomName = "CaveAlley";
-                break;
-            case 7:
-                RoomName = "EndPoint";
-                break;
-            default:
-                RoomName = "ERROR";
-                break;
-        }//스테이지 이름 세팅.
-        StartStageEvent();//스테이지 이벤트 시작.
+            //다음 스테이지로 이동됨.
+            await UniTask.Delay(800);
+            lastStageType = stageType;
+            stageType = nextStageType;
+            switch (stageType)
+            {
+                case 0:
+                    RoomName = "StartingPoint";
+                    break;
+                case 1:
+                    RoomName = "StartingPoint";
+                    break;
+                case 2:
+                    RoomName = "QuietHideout";
+                    break;
+                case 3:
+                    RoomName = "BloodCave";
+                    break;
+                case 4:
+                    RoomName = "DampCave";
+                    break;
+                case 5:
+                    RoomName = "ForkedRoad";
+                    break;
+                case 6:
+                    RoomName = "CaveAlley";
+                    break;
+                case 7:
+                    RoomName = "EndPoint";
+                    break;
+                default:
+                    RoomName = "ERROR";
+                    break;
+            }//스테이지 이름 세팅.
+            StartStageEvent();//스테이지 이벤트 시작.
+        });
+        //캐릭터가 앞으로 걷는 애니메이션
     }
     void NextStageRandom()//일정한 확률로 다음 스테이지를 설정.
     {
