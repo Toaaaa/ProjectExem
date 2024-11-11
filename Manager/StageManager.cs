@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
+using UnityEngine.Rendering.Universal;
 
 public class StageManager : MonoBehaviour
 {
@@ -12,16 +13,14 @@ public class StageManager : MonoBehaviour
 
     public int RoomNum;//방의 번호
     string RoomName;//방의 이름
-    [SerializeField]
-    List<Stage> StageList;
-    int stageType; //0: Tutorial, 1: Starting, 2:QuietHideout,  3: BloodCave, 4: DampCave, 5: ForkedRoad, 6: CaveAlley, 7: EndPoint.
+    public List<Stage> StageList;
+    public int stageType; //0: Tutorial, 1: Starting, 2:QuietHideout,  3: BloodCave, 4: DampCave, 5: ForkedRoad, 6: CaveAlley, 7: EndPoint.
     int lastStageType;//이전 스테이지의 타입.
     public int nextStageType;//다음 스테이지의 타입.
-
     public bool duringCombat;//전투중인지 여부.
-
     public float EndPercent;//다음 이동시 목적지일 확률.
 
+    public Light2D globalLight;
     private System.Random random = new System.Random();//랜덤함수 시드 초기화.
 
     private void Start()
@@ -178,8 +177,11 @@ public class StageManager : MonoBehaviour
     }
     public void Rest()//휴식.
     {
-        Debug.Log("휴식");
-        StageList[2].GetComponent<Hideout>().buttons[0].interactable = false;
+        StageList[2].GetComponent<Hideout>().StartResting();
+    }
+    public void RestEnd()
+    {
+        StageList[2].GetComponent<Hideout>().EndResting();
     }
     public void Search()//탐색한다.
     {

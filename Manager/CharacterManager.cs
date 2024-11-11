@@ -16,7 +16,7 @@ public class CharacterManager : MonoBehaviour
         joanAnim = Joanna.GetComponent<Animator>();
         reiAnim = Rei.GetComponent<Animator>();
     }
-
+    
 
     public void AllWalk()//다음 스테이지로 이동할때 모든 캐릭터가 걷는 애니메이션 실행.
     {
@@ -28,5 +28,14 @@ public class CharacterManager : MonoBehaviour
         joanAnim.SetTrigger("MoveEnd");
         reiAnim.SetTrigger("MoveEnd");
     }
-
+    public void StartRest()
+    {
+        joanAnim.SetTrigger("RestStart");
+        reiAnim.SetTrigger("RestStart");
+    }
+    public void EndRest()
+    {
+        joanAnim.SetTrigger("RestEnd");
+        reiAnim.SetTrigger("RestEnd");
+    }
 }
