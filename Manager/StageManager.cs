@@ -19,6 +19,7 @@ public class StageManager : MonoBehaviour
     public int nextStageType;//다음 스테이지의 타입.
     public bool duringCombat;//전투중인지 여부.
     public float EndPercent;//다음 이동시 목적지일 확률.
+    public bool isMoving;//움직이는 중인지 여부.
 
     public Light2D globalLight;
     private System.Random random = new System.Random();//랜덤함수 시드 초기화.
@@ -32,7 +33,13 @@ public class StageManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (isMoving)
+        {
+            for (int i = 0; i < StageList[stageType].buttons.Count; i++)
+            {
+                StageList[stageType].buttons[i].interactable = false;
+            }//버튼 비활성화.
+        }
     }
 
     void startStage()//처음 던전 입장시 입구에서 시작.
@@ -148,6 +155,7 @@ public class StageManager : MonoBehaviour
         {
             StageList[stageType].buttons[i].interactable = false;
         }//버튼 비활성화.
+        Ismoving();//다음 스테이지의 버튼 비활성화.
         RoomNum++;
         NextStageRandom();
         UpdateStage();
@@ -173,7 +181,24 @@ public class StageManager : MonoBehaviour
         }//버튼 비활성화.
         //임시로 다음 스테이지로 이동 넣음. 추후 확률에 따른 도망 or 즉시 전투 진행 넣기.
         Debug.Log("도망 (임시로 무조건 도망 성공)");
-        NextStage();
+        NextStage();//여기에 Ismoving있음.
+    }
+    public void Ismoving()//움직이는 버튼을 누를 경우, 다음 스테이지의 버튼을 일서적으로 누를 수 없게 만듬
+    {
+        Debug.Log("움직이는 중");
+        isMoving = true;
+        for (int i = 0; i < StageList[nextStageType].buttons.Count; i++)
+        {
+            StageList[stageType].buttons[i].interactable = false;
+        }//버튼 비활성화.
+    }
+    public void MovingDone()//움직이는 행동이 끝나게 되면, 현재 스테이지의 버튼이 원래대로 돌아옴.
+    {
+        isMoving = false;
+        for (int i = 0; i < StageList[stageType].buttons.Count; i++)
+        {
+            StageList[stageType].buttons[i].interactable = true;
+        }//버튼 활성화.
     }
     public void Rest()//휴식.
     {
@@ -246,4 +271,5 @@ public class StageManager : MonoBehaviour
     {
 
     }
+    
 }

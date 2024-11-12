@@ -9,16 +9,36 @@ public class Stage : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < buttons.Count; i++)
+        if (GameManager.Instance.stageManager.isMoving)
         {
-            buttons[i].interactable = true;
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = true;
+            }
         }
     }
     protected virtual void OnEnable()
     {
-        for (int i = 0; i < buttons.Count; i++)
+        if (GameManager.Instance.stageManager.isMoving)
         {
-            buttons[i].interactable = true;
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].interactable = true;
+            }
         }
     }
 
