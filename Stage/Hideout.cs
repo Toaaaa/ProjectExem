@@ -19,9 +19,11 @@ public class Hideout : Stage
 
     private void Start()
     {
-        Color color = Fire.GetComponent<SpriteRenderer>().color;
+        SpriteRenderer spriteRenderer = Fire.GetComponent<SpriteRenderer>();
+
+        // 초기 알파 값을 0으로 설정
+        Color color = spriteRenderer.color;
         color.a = 0;
-        Fire.GetComponent<SpriteRenderer>().color = color;
     }
 
     protected override void OnEnable()
@@ -108,14 +110,26 @@ public class Hideout : Stage
     }
     void FireFadeIn()
     {
-        Color color = Fire.GetComponent<SpriteRenderer>().color;
-        color.a = 0;
-        Fire.GetComponent<SpriteRenderer>().color = color;
+        SpriteRenderer spriteRenderer = Fire.GetComponent<SpriteRenderer>();
 
-        GetComponent<SpriteRenderer>().DOFade(1, 1);
+        // 초기 알파 값을 0으로 설정
+        Color color = spriteRenderer.color;
+        color.a = 0;
+        spriteRenderer.color = color;
+
+        // 알파 값을 1로 1초 동안 서서히 변경
+        spriteRenderer.DOFade(1f, 1f);
     }
     void FireFadeOut()
     {
-        GetComponent<SpriteRenderer>().DOFade(0, 1);
+        SpriteRenderer spriteRenderer = Fire.GetComponent<SpriteRenderer>();
+
+        // 초기 알파 값을 1로 설정
+        Color color = spriteRenderer.color;
+        color.a = 1;
+        spriteRenderer.color = color;
+
+        // 알파 값을 0으로 1초 동안 서서히 변경
+        spriteRenderer.DOFade(0f, 1f);
     }
 }
