@@ -26,6 +26,13 @@ public class Stage : MonoBehaviour
     }
     protected virtual void OnEnable()
     {
+        if(GameManager.Instance.stageManager == null)
+        {
+            GameManager.Instance.stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
+            GameManager.Instance.characterManager = GameManager.Instance.stageManager.characterManager;
+        }
+
+
         if (GameManager.Instance.stageManager.isMoving)
         {
             for (int i = 0; i < buttons.Count; i++)

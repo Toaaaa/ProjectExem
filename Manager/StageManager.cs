@@ -30,7 +30,7 @@ public class StageManager : MonoBehaviour
         GameManager.Instance.stageManager = this;
         GameManager.Instance.characterManager = characterManager;
     }
-
+    
     private void Update()
     {
         if (isMoving)
@@ -185,7 +185,6 @@ public class StageManager : MonoBehaviour
     }
     public void Ismoving()//움직이는 버튼을 누를 경우, 다음 스테이지의 버튼을 일서적으로 누를 수 없게 만듬
     {
-        Debug.Log("움직이는 중");
         isMoving = true;
         for (int i = 0; i < StageList[nextStageType].buttons.Count; i++)
         {
