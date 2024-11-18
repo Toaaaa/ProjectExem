@@ -38,4 +38,14 @@ public class CharacterManager : MonoBehaviour
         joanAnim.SetTrigger("RestEnd");
         reiAnim.SetTrigger("RestEnd");
     }
+    public void AllFlee()
+    {
+        joanAnim.SetTrigger("FleeStart");
+        reiAnim.SetTrigger("FleeStart");
+    }
+    public void FleeEnd()
+    {
+        joanAnim.SetTrigger("FleeEnd");
+        reiAnim.SetTrigger("FleeEnd");
+    }
 }

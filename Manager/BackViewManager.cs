@@ -25,6 +25,10 @@ public class BackViewManager : MonoBehaviour
     {
         StartCoroutine(FadeOutIn(onFadeOutComplete));
     }
+    public void TransitionToNextFlee(System.Action onFadeOutComplete = null)
+    {
+        StartCoroutine(FadeOutFlee(onFadeOutComplete));
+    }
 
     private IEnumerator FadeOutIn(System.Action onFadeOutComplete)
     {
@@ -43,6 +47,24 @@ public class BackViewManager : MonoBehaviour
         GameManager.Instance.characterManager.WalkEnd();
         yield return StartCoroutine(Fade(0f));
     }
+    private IEnumerator FadeOutFlee(System.Action onFadeOutComplete)//위와 동일한 함수지만 도망시의 애니메이션 연출.
+    {
+        // 페이드 아웃 (화면을 검게 만듦)
+        GameManager.Instance.characterManager.AllFlee();
+        yield return StartCoroutine(Fade(1.2f));
+
+        // 이전 스테이지 비활성화 및 새로운 스테이지 활성화 로직
+        backView.sprite = backViewList[GameManager.Instance.stageManager.nextStageType];
+        onFadeOutComplete?.Invoke();
+
+        // 잠시 대기 후 페이드 인
+        yield return new WaitForSeconds(1.2f);  // 검은색 상태 유지 시간 (1초)
+
+        // 페이드 인 (화면을 다시 투명하게 만듦)
+        GameManager.Instance.characterManager.FleeEnd();
+        yield return StartCoroutine(Fade(0f));
+    }
+
     private IEnumerator Fade(float targetAlpha)
     {
         float startAlpha = fadeInBlack.color.a;

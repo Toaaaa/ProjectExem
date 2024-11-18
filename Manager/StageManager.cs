@@ -92,6 +92,47 @@ public class StageManager : MonoBehaviour
         });
         //캐릭터가 앞으로 걷는 애니메이션
     }
+    void UpdateStageFlee()
+    {
+        backViewManager.TransitionToNextFlee(async () => //async
+        {
+            //다음 스테이지로 이동됨.
+            await UniTask.Delay(800);
+            lastStageType = stageType;
+            stageType = nextStageType;
+            switch (stageType)
+            {
+                case 0:
+                    RoomName = "StartingPoint";
+                    break;
+                case 1:
+                    RoomName = "StartingPoint";
+                    break;
+                case 2:
+                    RoomName = "QuietHideout";
+                    break;
+                case 3:
+                    RoomName = "BloodCave";
+                    break;
+                case 4:
+                    RoomName = "DampCave";
+                    break;
+                case 5:
+                    RoomName = "ForkedRoad";
+                    break;
+                case 6:
+                    RoomName = "CaveAlley";
+                    break;
+                case 7:
+                    RoomName = "EndPoint";
+                    break;
+                default:
+                    RoomName = "ERROR";
+                    break;
+            }//스테이지 이름 세팅.
+            StartStageEvent();//스테이지 이벤트 시작.
+        });
+    }
     void NextStageRandom()//일정한 확률로 다음 스테이지를 설정.
     {
         if(RoomNum >= 50)
@@ -148,7 +189,7 @@ public class StageManager : MonoBehaviour
         StageList[stageType].gameObject.SetActive(true);
     }
 
-    /////////////스테이지 버튼 함수들/////////////
+    /////////////버튼 함수/////////////
     public void NextStage()//다음 스테이지로 이동.
     {
         for (int i = 0; i < StageList[stageType].buttons.Count; i++)
@@ -181,7 +222,14 @@ public class StageManager : MonoBehaviour
         }//버튼 비활성화.
         //임시로 다음 스테이지로 이동 넣음. 추후 확률에 따른 도망 or 즉시 전투 진행 넣기.
         Debug.Log("도망 (임시로 무조건 도망 성공)");
-        NextStage();//여기에 Ismoving있음.
+        for (int i = 0; i < StageList[stageType].buttons.Count; i++)
+        {
+            StageList[stageType].buttons[i].interactable = false;
+        }//버튼 비활성화.
+        Ismoving();//다음 스테이지의 버튼 비활성화.
+        RoomNum++;
+        NextStageRandom();
+        UpdateStageFlee();
     }
     public void Ismoving()//움직이는 버튼을 누를 경우, 다음 스테이지의 버튼을 일서적으로 누를 수 없게 만듬
     {
@@ -191,9 +239,10 @@ public class StageManager : MonoBehaviour
             StageList[stageType].buttons[i].interactable = false;
         }//버튼 비활성화.
     }
-    public void MovingDone()//움직이는 행동이 끝나게 되면, 현재 스테이지의 버튼이 원래대로 돌아옴.
+    public async void MovingDone()//움직이는 행동이 끝나게 되면, 현재 스테이지의 버튼이 원래대로 돌아옴.
     {
         isMoving = false;
+        await UniTask.Delay(400);
         for (int i = 0; i < StageList[stageType].buttons.Count; i++)
         {
             StageList[stageType].buttons[i].interactable = true;

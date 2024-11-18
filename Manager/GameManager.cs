@@ -34,9 +34,12 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        Color color = BlackOut.color;
-        color.a = 0;
-        BlackOut.color = color;
+        if (BlackOut != null)
+        {
+            Color color = BlackOut.color;
+            color.a = 0;
+            BlackOut.color = color;
+        }
     }
 
     public void GameStart()
@@ -78,7 +81,7 @@ public class GameManager : MonoBehaviour
         asyncLoad.allowSceneActivation = true;
 
         // 5. 블랙아웃 해제 (1초 동안 투명하게 변경)
-        BlackOut.DOFade(0f, 1f).OnComplete(() =>
+        BlackOut.DOFade(0f, 1f).OnComplete(() => //동기 방식인 waitforcompletion을 사용하니, 씬 내용물이 많은경우 제대로 작동하지 않아, 비동기 방식인 oncomplete를 사용.
         {
             mainCanvas.GetComponent<CanvasGroup>().blocksRaycasts = false;
         });
