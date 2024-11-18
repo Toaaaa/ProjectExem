@@ -36,25 +36,28 @@ public class Hideout : Stage
 
     private void Update()
     {
-        if (isRestingButton)
+        if(!GameManager.Instance.stageManager.isMoving)
         {
-            buttons[0].gameObject.SetActive(false);
-            buttons[1].gameObject.SetActive(true);
-            buttons[2].interactable = false;
-            if(OnResting)
+            if (isRestingButton)
             {
-                buttons[1].interactable = false;
+                buttons[0].gameObject.SetActive(false);
+                buttons[1].gameObject.SetActive(true);
+                buttons[2].interactable = false;
+                if (OnResting)
+                {
+                    buttons[1].interactable = false;
+                }
+                else
+                {
+                    buttons[1].interactable = true;
+                }
             }
             else
             {
-                buttons[1].interactable = true;
+                buttons[0].gameObject.SetActive(true);
+                buttons[1].gameObject.SetActive(false);
+                buttons[2].interactable = true;
             }
-        }
-        else
-        {
-            buttons[0].gameObject.SetActive(true);
-            buttons[1].gameObject.SetActive(false);
-            buttons[2].interactable = true;
         }
     }
 
