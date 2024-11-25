@@ -40,9 +40,10 @@ public class Hideout : Stage
         {
             if (isRestingButton)
             {
+                buttons[0].interactable = false;//휴식 버튼 비활성화.
+                buttons[2].interactable = false;//다음방 버튼 비활성화.
                 buttons[0].gameObject.SetActive(false);
                 buttons[1].gameObject.SetActive(true);
-                buttons[2].interactable = false;
                 if (OnResting)
                 {
                     buttons[1].interactable = false;
@@ -56,7 +57,6 @@ public class Hideout : Stage
             {
                 buttons[0].gameObject.SetActive(true);
                 buttons[1].gameObject.SetActive(false);
-                buttons[2].interactable = true;
             }
         }
     }
@@ -81,8 +81,11 @@ public class Hideout : Stage
         isResting = false;
         OnResting = true;
         LightsOn();
-        await UniTask.Delay(800);
         EndFire();
+        await UniTask.Delay(1200);
+        buttons[0].interactable = true;//휴식 버튼 활성화.
+        buttons[2].interactable = true;//다음방 버튼 활성화.
+
     }
     public void SetIsEndResting()
     {

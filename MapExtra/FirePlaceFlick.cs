@@ -46,7 +46,11 @@ public class FirePlaceFlick : MonoBehaviour
         light2D.pointLightOuterRadius = 0f;
         DOTween.To(() => light2D.pointLightOuterRadius, x => light2D.pointLightOuterRadius = x, minOuterRadius, fadeDuration)
             .SetEase(Ease.InOutSine)
-            .OnComplete(StartFlicker);
+            .OnComplete(() =>
+            {
+                StartFlicker();
+                GameManager.Instance.stageManager.StageList[2].GetComponent<Hideout>().SetIsResting();
+            });
     }
 
     private void StartFlicker()
