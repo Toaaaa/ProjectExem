@@ -138,6 +138,7 @@ public class StageManager : MonoBehaviour
         if(RoomNum >= 50)
         {
             nextStageType = random.Next(0, 100) <= EndPercent ? 7 : 0; //엔드 포인트 확률 연산.
+            EndPercent += 0.05f;//50번째 방 이후부터 0.05%씩 증가.
             if(nextStageType == 7)
             {
                 return;
@@ -173,19 +174,27 @@ public class StageManager : MonoBehaviour
         {
             return 6; // 10% 확률로 동굴 길목
         }
-        else if (randomValue < 65)
+        else if (randomValue < 60)
         {
-            return 3; // 25% 확률로 혈향 동굴
+            return 3; // 20% 확률로 혈향 동굴
+        }
+        else if(randomValue < 90)
+        {
+            return 4; // 30% 확률로 축축한 동굴
         }
         else
         {
-            return 4; // 35% 확률로 축축한 동굴
+            if (RoomNum <= 12)
+                return stageType; // 만약 13번째 방 이전 이라면, 함수를 다시 호출.
+
+            return 8; // 10% 확률로 선택지 스테이지
         }
     }
     void StartStageEvent()//스테이지의 이벤트 시작.
     {
         //이전 스테이지 비활성화 + 다음 스테이지 활성화.
         StageList[lastStageType].gameObject.SetActive(false);
+        StageList[lastStageType].DisableAllObject();//이전 스테이지의 모든 오브젝트 비활성화 (npc, ui 등..)
         StageList[stageType].gameObject.SetActive(true);
     }
 

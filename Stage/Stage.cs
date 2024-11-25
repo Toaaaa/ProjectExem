@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Stage : MonoBehaviour
 {
     public List<Button> buttons;
+    public List<GameObject> objects;
+    public TextMeshProUGUI stageDesc;
 
     private void Start()
     {
@@ -54,6 +57,13 @@ public class Stage : MonoBehaviour
         for (int i = 0; i < buttons.Count; i++)
         {
             buttons[i].interactable = false;
+        }
+    }
+    public void DisableAllObject()
+    {
+        for (int i = 0; i < objects.Count; i++)
+        {
+            objects[i].SetActive(false);
         }
     }
 }
