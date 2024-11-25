@@ -184,7 +184,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            if (RoomNum <= 12)
+            if (RoomNum <= 2)//테스팅 용도로 일단은 2번째 방까지만.
                 return stageType; // 만약 13번째 방 이전 이라면, 함수를 다시 호출.
 
             return 8; // 10% 확률로 선택지 스테이지
@@ -245,7 +245,7 @@ public class StageManager : MonoBehaviour
         isMoving = true;
         for (int i = 0; i < StageList[nextStageType].buttons.Count; i++)
         {
-            StageList[stageType].buttons[i].interactable = false;
+            StageList[nextStageType].buttons[i].interactable = false;
         }//버튼 비활성화.
     }
     public async void MovingDone()//움직이는 행동이 끝나게 되면, 현재 스테이지의 버튼이 원래대로 돌아옴.
