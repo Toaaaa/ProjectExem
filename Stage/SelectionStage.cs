@@ -72,13 +72,17 @@ public class SelectionStage : Stage // 선택지 스테이지
         }
         else
         {
-            SetButtonPosX(0, 90f);
-            SetButtonPosX(1, 510f);
+            SetButtonPosX(0, 80f);
+            SetButtonPosX(1, 520f);
             SetButtonPosX(2, 290f);
         }
     }
     void UpdateSelected()// 선택지의 텍스트와 버튼의 텍스트 설정
     {
+        //bool값 초기화
+        if(currentSelection != null)
+            currentSelection.isSelectSpecial = false;
+        //선택지 정보 업데이트
         selectionNum = currentSelection.selectionID;
         if (currentSelection.isButtonThree)
         {
@@ -104,6 +108,7 @@ public class SelectionStage : Stage // 선택지 스테이지
             buttons[1].onClick.AddListener(NextImg2);
             //버튼 on click 함수 리셋.
             buttons[2].gameObject.SetActive(false);
+            buttons[3].gameObject.SetActive(false);
         }
         TextShow(0);
         ButtonDesc();
@@ -184,7 +189,11 @@ public class SelectionStage : Stage // 선택지 스테이지
                 buttons[3].interactable = false;
                 await UniTask.Delay(700);
                 buttons[3].onClick.RemoveAllListeners();
-                buttons[3].onClick.AddListener(SpecialNextRoom);//특수한 조건으로 다음방으로 이동하는 버튼으로 변경.
+                //스페셜 스테이지를 선택 유무
+                if (currentSelection.isSelectSpecial)//스페셜 스테이지를 선택시
+                    buttons[3].onClick.AddListener(SpecialNextRoom);//특수한 조건으로 다음방으로 이동하는 버튼으로 변경.
+                else
+                    buttons[3].onClick.AddListener(NextRoomButton);//다음방으로 이동하는 버튼으로 변경.
                 buttons[3].interactable = true;
 
             }
@@ -198,7 +207,11 @@ public class SelectionStage : Stage // 선택지 스테이지
                 buttons[2].interactable = false;
                 await UniTask.Delay(700);
                 buttons[2].onClick.RemoveAllListeners();
-                buttons[2].onClick.AddListener(SpecialNextRoom);//특수한 조건으로 다음방으로 이동하는 버튼으로 변경.
+                //스페셜 스테이지를 선택 유무
+                if (currentSelection.isSelectSpecial)//스페셜 스테이지를 선택시
+                    buttons[2].onClick.AddListener(SpecialNextRoom);//특수한 조건으로 다음방으로 이동하는 버튼으로 변경.
+                else
+                    buttons[2].onClick.AddListener(NextRoomButton);//다음방으로 이동하는 버튼으로 변경.
                 buttons[2].interactable = true;
             }
             return;
@@ -231,17 +244,135 @@ public class SelectionStage : Stage // 선택지 스테이지
             buttons[2].interactable = true;
         }
     }
-    public void Button1()
+    //델리게이트 처럼 사용할 버튼.
+    public async void Button1()
     {
-        //델리게이트 처럼 사용하기.
+        await UniTask.Delay(300);
+
+        switch (selectionNum)
+        {
+            case 0://미치광이 노인
+                Debug.Log("식량 1칸 소모 + 랜덤 아티팩트 획득 ui");
+                break;
+            case 1://말하는 등불
+                Debug.Log("체력 -20% + 등불의 힘 획득");
+                break;
+            case 2://크툴루 신전
+                Debug.Log("이계의 신 버프 (신념 대폭하락 + 피격 데미지 감소)");
+                break;
+            case 3://고급스러운 약병
+                Debug.Log("조안나에게 약병의 효과 적용");
+                break;
+            case 4://음산한 숲
+                currentSelection.isSelectSpecial = true;
+                break;
+            case 5://던전 벽의 균열
+                Debug.Log("50%의 확률로 조안나 체력 -20% or 20%체력 획복 물약");
+                break;
+            case 6://하늘을 나는 고기다?
+                Debug.Log("50%의 확률로 고기를 잡아 식량 획득 or 50%의 확률로 레이 체력 -30%");
+                break;
+            case 7://수상한 식량 주머니
+                Debug.Log("식량 3칸 획득");
+                break;
+            case 8://잠든 석상
+                Debug.Log("신념 최대치까지 회복");
+                break;
+            case 9://뚫린 던전 벽
+                currentSelection.isSelectSpecial = true;
+                break;
+            case 10://기타 스토리
+                Debug.Log("미정");
+                break;
+
+
+        }
     }
-    public void Button2()
+    public async void Button2()
     {
-        
+        await UniTask.Delay(300);
+
+        switch (selectionNum)
+        {
+            case 0://미치광이 노인
+                Debug.Log("파티 체력 - 5%");
+                break;
+            case 1://말하는 등불
+                Debug.Log("아무일 없음");
+                break;
+            case 2://크툴루 신전
+                currentSelection.isSelectSpecial = true;
+                break;
+            case 3://고급스러운 약병
+                Debug.Log("레이에게 약병의 효과 적용");
+                break;
+            case 4://음산한 숲
+                Debug.Log("");
+                break;
+            case 5://던전 벽의 균열
+                Debug.Log("");
+                break;
+            case 6://하늘을 나는 고기다?
+                Debug.Log("");
+                break;
+            case 7://수상한 식량 주머니
+                Debug.Log("");
+                break;
+            case 8://잠든 석상
+                Debug.Log("");
+                break;
+            case 9://뚫린 던전 벽
+                Debug.Log("");
+                break;
+            case 10://기타 스토리
+                Debug.Log("미정");
+                break;
+
+
+        }
     }
-    public void Button3()
+    public async void Button3() //선택지가 2개일 경우, switch 문 에서 아무런 기능을 하지 않음. (다른곳에서 람다식으로 사용 함)
     {
-        
+        await UniTask.Delay(300);
+
+        switch (selectionNum)
+        {
+            case 0://미치광이 노인
+                Debug.Log("다음방");
+                break;
+            case 1://말하는 등불
+                Debug.Log("등불의 정령 전투 시작");
+                break;
+            case 2://크툴루 신전
+                Debug.Log("");
+                break;
+            case 3://고급스러운 약병
+                Debug.Log("");
+                break;
+            case 4://음산한 숲
+                Debug.Log("");
+                break;
+            case 5://던전 벽의 균열
+                Debug.Log("");
+                break;
+            case 6://하늘을 나는 고기다?
+                Debug.Log("");
+                break;
+            case 7://수상한 식량 주머니
+                Debug.Log("");
+                break;
+            case 8://잠든 석상
+                Debug.Log("");
+                break;
+            case 9://뚫린 던전 벽
+                Debug.Log("");
+                break;
+            case 10://기타 스토리
+                Debug.Log("미정");
+                break;
+
+
+        }
     }
 
     public void NextRoomButton()// 다음방으로 이동하는 버튼
@@ -331,5 +462,7 @@ public class SelectionPreset
     public bool isButtonDown;// 버튼의 위치가 아래인지 (텍스트 양이 많을때 사용)
     public bool isButtonThree;// 버튼이 3개인지
     public bool instantNext; // 즉시 다음 스테이지로 넘어가는지 (다른 버튼을 누르지 않아도 다음 스테이지로 넘어가는 경우)
+
+    public bool isSelectSpecial; //스페셜 스테이지로 갈지 선택했는지?
 
 }

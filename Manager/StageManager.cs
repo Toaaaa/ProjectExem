@@ -51,7 +51,6 @@ public class StageManager : MonoBehaviour
     }
     void UpdateStage()//다음 스테이지로 업데이트 (배경,버튼선택지,진행사항)
     {
-        Debug.Log("다음 스테이지로 이동");
         backViewManager.TransitionToNextStage(async () => //async
         {
             //다음 스테이지로 이동됨.
