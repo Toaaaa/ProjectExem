@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public StageManager stageManager;
     public CharacterManager characterManager;
+    public PartyManager partyManager;
+    public InventoryManager inventoryManager;
 
     public Canvas mainCanvas;//블랙아웃과 옵션등 게임 전반에서 쓰일 UI들이 담긴 캔버스.
     [SerializeField]
@@ -42,6 +44,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            ForTheTest0();
+            //inventoryManager.SaveInventory();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            ForTheTest1();
+            //inventoryManager.SaveInventory();
+        }
+    }
+    public void ForTheTest0()
+    {
+        inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(0), 1);
+        inventoryManager.inventoryData.items[0].quantity += 1;
+        //이후에는 0번이라는 인덱스 숫자에 선택한 아이템의.id를 넣는 방식으로 변경.
+    }
+    public void ForTheTest1()
+    {
+        inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(1), 1);
+        inventoryManager.inventoryData.items[1].quantity += 1;
+    }
     public void GameStart()
     {
         //LoadGame 또는 NewGame을 선택하는 UI를 띄울 계획 이지만 일단은 바로 게임을 시작하도록 설정
@@ -61,6 +87,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator LoadSceneWithBlackout(string sceneName)//블랙아웃 효과와 함께 씬을 로드하는 함수.
     {
+        Debug.Log("블랙아웃 시작");
         // 1. 블랙아웃 실행 (1초 동안 어두워짐)
         mainCanvas.GetComponent<CanvasGroup>().blocksRaycasts = true;
         yield return BlackOut.DOFade(1f, 1f).WaitForCompletion();
@@ -84,6 +111,7 @@ public class GameManager : MonoBehaviour
         BlackOut.DOFade(0f, 1f).OnComplete(() => //동기 방식인 waitforcompletion을 사용하니, 씬 내용물이 많은경우 제대로 작동하지 않아, 비동기 방식인 oncomplete를 사용.
         {
             mainCanvas.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            Debug.Log("블랙아웃 해제");
         });
     }
     public void BlackOutScreen()//화면 블랙아웃 효과.
