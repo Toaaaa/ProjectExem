@@ -1,0 +1,37 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class InventorySlot : MonoBehaviour
+{
+    public Image icon; // 아이템 아이콘
+    public Button button; // 슬롯 버튼 (선택 사항)
+    private Item item; // 슬롯에 할당된 아이템
+    public bool isItemOn; // 아이템이 있는지 여부
+
+    public void AddItem(Item newItem)
+    {
+        item = newItem;
+        icon.sprite = item.itemData.Icon; // 아이템의 아이콘 표시
+        icon.enabled = true; // 아이콘 활성화
+        isItemOn = true;
+    }
+
+    public void ClearSlot()
+    {
+        item = null;
+        icon.sprite = null; // 아이콘 제거
+        icon.enabled = false; // 아이콘 비활성화
+        isItemOn = false;
+    }
+
+    public void OnSlotClicked()//추후 클릭이 아닌 마우스 오버로 변경.
+    {
+        if (item != null)
+        {
+            Debug.Log($"Clicked on item: {LocalizationManager.Instance.GetLocalizedString(item.itemData.ItemNameKey)}");
+            // 추가 액션 처리
+        }
+    }
+}
