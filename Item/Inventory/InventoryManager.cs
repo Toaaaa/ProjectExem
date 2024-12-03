@@ -10,6 +10,12 @@ public class InventoryManager : MonoBehaviour
     public Inventory bagpack;
     public Inventory storage;
 
+    [SerializeField]
+    public int bagpackSize = 20;
+    public int bagSizeMax = 32;
+
+    public int storageSize = 60;
+
     private void Start()
     {
         GameManager.Instance.inventoryManager = this;

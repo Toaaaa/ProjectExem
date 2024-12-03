@@ -18,9 +18,9 @@ public class SlotBack : MonoBehaviour
         RectTransform mainSlotRect = MainSlot;
 
         if(isItemSlot)
-            this.GetComponent<RectTransform>().sizeDelta = new Vector2(mainSlotRect.rect.width - space, mainSlotRect.rect.height - space);
+            this.GetComponent<RectTransform>().sizeDelta = new Vector2(mainSlotRect.rect.width - space, mainSlotRect.rect.width - space); //슬롯은 정사각형임으로 width만 가져와서 대입 (스크롤 뷰때문에 height에 변동이 생김)
         else
-            this.GetComponent<RectTransform>().sizeDelta = new Vector2(mainSlotRect.rect.width, mainSlotRect.rect.height);
+            this.GetComponent<RectTransform>().sizeDelta = new Vector2(mainSlotRect.rect.width, mainSlotRect.rect.width);
 
     }
 }

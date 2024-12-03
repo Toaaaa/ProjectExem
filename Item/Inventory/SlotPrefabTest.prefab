@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3981e8b7595076448c2c3c44791fd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainSlot: {fileID: 5278177382140865484}
+  MainSlot: {fileID: 3960805364878262914}
   isItemSlot: 0
   space: 0
 --- !u!1 &8207370618957661331
@@ -329,9 +329,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2673c447f0d0ec1419a70d537a7ceb53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 0}
   icon: {fileID: 3700509355259333515}
   button: {fileID: 6078708051935598289}
   isItemOn: 0
+  slotBlocked: 0
+  blockedIcon: {fileID: 21300000, guid: 46f1d8460ba07af409910ade78295569, type: 3}
 --- !u!114 &677207599380484978
 MonoBehaviour:
   m_ObjectHideFlags: 0

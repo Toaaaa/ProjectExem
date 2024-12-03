@@ -12,6 +12,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private Item item; // 슬롯에 할당된 아이템
     public bool isItemOn; // 아이템이 있는지 여부
 
+    public bool slotBlocked; // 아직 개방되지 않은 슬롯
+    [SerializeField]
+    private Sprite blockedIcon;
+
     public void AddItem(Item newItem)
     {
         item = newItem;
@@ -28,6 +32,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         isItemOn = false;
     }
 
+    private void Update()
+    {
+        IconDisplay();
+    }
     public void OnSlotClicked()//추후 클릭이 아닌 마우스 오버로 변경.
     {
         if (item != null)
@@ -56,6 +64,21 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             inventoryUI.itemInfoPanel.itemName.text = "";
             inventoryUI.itemInfoPanel.itemDescription.text = "";
             // 추가 액션 처리
+        }
+    }
+    private void IconDisplay()
+    {
+        if(slotBlocked)
+        {
+            icon.sprite = blockedIcon;
+            button.interactable = false;
+        }
+        else
+        {/*
+            if (item != null)
+                icon.enabled = true;
+            else
+                icon.enabled = false;*/
         }
     }
 }
