@@ -67,7 +67,16 @@ public class Inventory : MonoBehaviour
 
     public void SortItemsByID()
     {
-        items.Sort((a, b) => a.itemData.ID.CompareTo(b.itemData.ID));
+        // 먼저 ItemType을 기준으로, 그다음 ID를 기준으로 정렬
+        items.Sort((a, b) =>
+        {
+            int typeComparison = a.itemData.Type.CompareTo(b.itemData.Type); // ItemType 비교
+            if (typeComparison != 0)
+            {
+                return typeComparison; // ItemType이 다르면 그 결과로 정렬
+            }
+            return a.itemData.ID.CompareTo(b.itemData.ID); // ItemType이 같으면 ID로 정렬
+        });
     }
     public void ApplyToScriptable(Item item, InventoryScriptableObject sobj)
     {
