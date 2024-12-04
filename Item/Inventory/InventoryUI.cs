@@ -12,6 +12,12 @@ public class InventoryUI : MonoBehaviour
     public Transform slotsParent; // Grid Layout이 적용된 자기자신
     public InventoryScriptableObject inventoryData; // 데이터
     public ItemInfoPanel itemInfoPanel; // 아이템 정보 패널
+    private RectTransform panelRect; // 패널의 RectTransform
+    [SerializeField]
+    private Vector2 panelPosBag; // 패널이 가방위에
+    [SerializeField]
+    private Vector2 panelPosStorage; // 패널이 창고위에
+
 
     private InventorySlot[] slots; // 슬롯 배열
 
@@ -20,8 +26,16 @@ public class InventoryUI : MonoBehaviour
     [SerializeField]
     private ScrollRect scrollRect; //스크롤뷰
 
+    //////////인벤토리 자체 정보///////////
+    public int currentSize; //현재 인벤토리 크기 (내용물이 있는 슬롯의 개수)
+    public int maxSize; //최대 인벤토리 크기 (최대 슬롯 개수)
+
     private void Start()
     {
+        panelRect = itemInfoPanel.GetComponent<RectTransform>();
+        
+        //////////
+        
         if (isStorage)
         {
             if (scrollRect != null)
@@ -36,6 +50,9 @@ public class InventoryUI : MonoBehaviour
             GameManager.Instance.inventoryManager.bagUI = this;
             GenerateSlots();
         }
+        maxSize = GameManager.Instance.inventoryManager.bagSizeMax;
+        currentSize = GetEmptySlotIndex();
+
         isInitialized = true;
         UpdateUI();
     }
@@ -98,23 +115,35 @@ public class InventoryUI : MonoBehaviour
 
     public void UpdateUI()//디스플레이 상의 정보 업데이트
     {
-        // 데이터와 UI 연결
+        // 유효한 아이템만 수집
+        List<Item> validItems = new List<Item>();
+        foreach (var item in inventoryData.items)
+        {
+            if (item.quantity > 0)
+            {
+                validItems.Add(item);
+            }
+        }
+
+        // 유효한 아이템을 슬롯에 순차적으로 배치
+        int itemIndex = 0;
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventoryData.items.Count && inventoryData.items[i].quantity !=0) //아이템이 존재하며 0개가 아닐때.
+            if (itemIndex < validItems.Count) // 유효한 아이템이 남아 있는 경우
             {
                 slots[i].slotBlocked = false;
-                slots[i].AddItem(inventoryData.items[i]);
+                slots[i].AddItem(validItems[itemIndex]);
+                itemIndex++;
             }
-            else if(i < GameManager.Instance.inventoryManager.bagpackSize || isStorage)
+            else if (i < GameManager.Instance.inventoryManager.bagpackSize || isStorage) // 유효한 슬롯 범위 내
             {
                 slots[i].slotBlocked = false;
                 slots[i].ClearSlot();
                 slots[i].ZeroAmout();
             }
-            else
+            else // 나머지 슬롯 비활성화
             {
-                if(!isStorage)//인벤의 경우 막힌슬롯 표시
+                if (!isStorage) // 인벤토리의 경우 막힌 슬롯 표시
                 {
                     slots[i].slotBlocked = true;
                     slots[i].ZeroAmout();
@@ -122,12 +151,35 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+    private int GetEmptySlotIndex()//currentSize를 구하는 함수
+    {
+        int index = 0;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (!slots[i].isItemOn)
+            {
+                index++;
+            }
+        }
+        return maxSize - index;
+    }
     private void ScrollToTop()
     {
         if (scrollRect != null)
         {
             Canvas.ForceUpdateCanvases(); // 캔버스 갱신
             scrollRect.verticalNormalizedPosition = 1f; // 맨 위로 설정
+        }
+    }
+    public void PanelPos(bool isstorage)
+    {
+        if(isstorage)
+        {
+            panelRect.anchoredPosition = panelPosStorage;
+        }
+        else
+        {
+            panelRect.anchoredPosition = panelPosBag;
         }
     }
 }

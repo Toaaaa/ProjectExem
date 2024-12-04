@@ -84,6 +84,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (item != null)
         {
             inventoryUI.itemInfoPanel.gameObject.SetActive(true);
+            if(isStorage)
+                inventoryUI.PanelPos(true);//창고일 경우 true를 넣어 창고의 상단에 패널 표시                
+            else
+                inventoryUI.PanelPos(false);//인벤토리일 경우 false를 넣어 인벤토리의 상단에 패널 표시
             inventoryUI.itemInfoPanel.icon.sprite = item.itemData.Icon;
             inventoryUI.itemInfoPanel.itemName.text = LocalizationManager.Instance.GetLocalizedString(item.itemData.ItemNameKey);
             inventoryUI.itemInfoPanel.itemDescription.text = LocalizationManager.Instance.GetLocalizedString(item.itemData.DescriptionKey);
