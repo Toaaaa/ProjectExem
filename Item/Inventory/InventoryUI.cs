@@ -26,12 +26,14 @@ public class InventoryUI : MonoBehaviour
         {
             if (scrollRect != null)
                 scrollRect.enabled = true; // 스크롤 활성화
+            GameManager.Instance.inventoryManager.storageUI = this;
             GenerateSlotsStorage();
         }
         else
         {
             if(scrollRect != null)
                 scrollRect.enabled = false; // 스크롤 비활성화
+            GameManager.Instance.inventoryManager.bagUI = this;
             GenerateSlots();
         }
         isInitialized = true;
@@ -58,6 +60,7 @@ public class InventoryUI : MonoBehaviour
             GameObject slotObj = Instantiate(slotPrefab, slotsParent);
             slots[i] = slotObj.GetComponent<RealSlot>().slotPrefab;//실제로 아이템의 정보를 가질 슬롯(slotPrefab).
             slots[i].inventoryUI = this;
+            slots[i].isStorage = isStorage;
             if(i >= currentSize)
             {
                 slots[i].slotBlocked = true;
@@ -87,17 +90,18 @@ public class InventoryUI : MonoBehaviour
             GameObject slotObj = Instantiate(slotPrefab, slotsParent);
             slots[i] = slotObj.GetComponent<RealSlot>().slotPrefab;//실제로 아이템의 정보를 가질 슬롯(slotPrefab).
             slots[i].inventoryUI = this;
+            slots[i].isStorage = isStorage;
         }
 
         ScrollToTop(); // 스크롤 맨 위로 이동
     }
 
-    private void UpdateUI()
+    public void UpdateUI()//디스플레이 상의 정보 업데이트
     {
         // 데이터와 UI 연결
         for (int i = 0; i < slots.Length; i++)
         {
-            if (i < inventoryData.items.Count)
+            if (i < inventoryData.items.Count && inventoryData.items[i].quantity !=0) //아이템이 존재하며 0개가 아닐때.
             {
                 slots[i].slotBlocked = false;
                 slots[i].AddItem(inventoryData.items[i]);
@@ -106,11 +110,15 @@ public class InventoryUI : MonoBehaviour
             {
                 slots[i].slotBlocked = false;
                 slots[i].ClearSlot();
+                slots[i].ZeroAmout();
             }
             else
             {
                 if(!isStorage)//인벤의 경우 막힌슬롯 표시
+                {
                     slots[i].slotBlocked = true;
+                    slots[i].ZeroAmout();
+                }
             }
         }
     }

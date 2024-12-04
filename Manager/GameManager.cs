@@ -59,13 +59,13 @@ public class GameManager : MonoBehaviour
     }
     public void ForTheTest0()
     {
-        inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(0), 1);
+        inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(2), 1);
         inventoryManager.inventoryData.items[0].quantity += 1;
         //이후에는 0번이라는 인덱스 숫자에 선택한 아이템의.id를 넣는 방식으로 변경.
     }
     public void ForTheTest1()
     {
-        inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(1), 1);
+        inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(3), 1);
         inventoryManager.inventoryData.items[1].quantity += 1;
     }
     public void GameStart()

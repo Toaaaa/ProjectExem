@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51f0577d4cecd4b46819b86e7e7de227, type: 3}
-  m_Name: 1.Normal Portion
+  m_Name: 0.Cheap Potion
   m_EditorClassIdentifier: 
-  id: 1
-  itemNameKey: Normal_Portion
-  descriptionKey: Normal_Portion_Desc
+  id: 0
+  itemNameKey: Cheap_Potion
+  descriptionKey: Cheap_Potion_Desc
   type: 0
-  icon: {fileID: 21300000, guid: 089752227ad2dcd40972f1033df6d6b2, type: 3}
-  stackable: 0
-  maxStack: 1
+  icon: {fileID: 21300000, guid: fd13fab565b376e4db345fae3e6517ab, type: 3}
+  stackable: 1
+  maxStack: 3
   rarity: 0

@@ -51,13 +51,13 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < items.Count; i++)
         {
-            if (items[i].itemData == itemData)
+            if (items[i].itemData.ID == itemData.ID)
             {
                 items[i].quantity -= quantity;
-                if (items[i].quantity <= 0)
+                /*if (items[i].quantity <= 0)
                 {
                     items.RemoveAt(i); // 수량이 0 이하일 경우 제거
-                }
+                }*/
                 return true;
             }
         }
@@ -68,6 +68,37 @@ public class Inventory : MonoBehaviour
     public void SortItemsByID()
     {
         items.Sort((a, b) => a.itemData.ID.CompareTo(b.itemData.ID));
+    }
+    public void ApplyToScriptable(Item item, InventoryScriptableObject sobj)
+    {
+        //스크립터블에 변경사항을 적용하는 함수.
+        foreach (var i in sobj.items)
+        {
+            if (i.itemData.ID == item.itemData.ID)
+            {
+                int index = item.itemData.ID;
+                try
+                {
+                    if (items[index].quantity == 0)//Inventory클라스에 임시로 저장된 데이터가 0이면
+                    {
+                        sobj.items[index].quantity = 0;//스크립터블에도 0을 적용.
+                        return;
+                    }
+                    else//0이 아닌 경우
+                    {
+                        i.quantity = items[index].quantity;//items의 인덱스는 아이템의 id와 같다 //해당하는 Inventory클라스에 임시로 저장된 데이터를 scriptable에 적용.
+                        return;
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log(e);
+                    return;
+                }
+            }
+        }
+
+        //아이템의 적용 순서 : 클릭 >> Inventory클라스를 가지는 임시 오브젝트에 데이터 적용 >> 스크립터블에 데이터 적용 >> 스크립터블의 데이터를 참고하는 UI가 데이터를 표시.
     }
 
     public List<Item> GetAllItems() => items;

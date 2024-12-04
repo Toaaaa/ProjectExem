@@ -10,6 +10,9 @@ public class InventoryManager : MonoBehaviour
     public Inventory bagpack;
     public Inventory storage;
 
+    public InventoryUI bagUI;
+    public InventoryUI storageUI;
+
     [SerializeField]
     public int bagpackSize = 20;
     public int bagSizeMax = 32;
@@ -63,5 +66,10 @@ public class InventoryManager : MonoBehaviour
         {
             storage.AddItem(inventoryStorageData.items[i].itemData, inventoryStorageData.items[i].quantity);
         }
+    }
+    public void UpdateUIBoth()
+    {
+        bagUI.UpdateUI();
+        storageUI.UpdateUI();
     }
 }

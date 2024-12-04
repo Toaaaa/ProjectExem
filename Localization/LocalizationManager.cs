@@ -35,21 +35,40 @@ public class LocalizationManager : MonoBehaviour
             // { "언어_Key", "Value" } Key == ItemData.itemNameKey
 
             //id = 0
-            { "en_Cheap_Portion", "Cheap Portion" },
-            { "kr_Cheap_Portion", "싸구려 포션" },
-            { "jp_Cheap_Portion", "安いポーション" },
-            { "en_Cheap_Portion_Desc", "A cheap portion that restores 10% of HP." },
-            { "kr_Cheap_Portion_Desc", "HP 10% 를 회복하는 싸구려 포션." },
-            { "jp_Cheap_Portion_Desc", "HP 10% を回復する安いポーション"},
+            { "en_Cheap_Potion", "Cheap Potion" },
+            { "kr_Cheap_Potion", "싸구려 포션" },
+            { "jp_Cheap_Potion", "安いポーション" },
+            { "en_Cheap_Potion_Desc", "A cheap portion that restores 10% of HP." },
+            { "kr_Cheap_Potion_Desc", "HP 10% 를 회복하는 싸구려 포션." },
+            { "jp_Cheap_Potion_Desc", "HP 10% を回復する安いポーション"},
             //id = 1
-            { "en_Normal_Portion", "Normal Portion" },
-            { "kr_Normal_Portion", "평범한 포션" },
-            { "jp_Normal_Portion", "通常ポーション" },
-            { "en_Normal_Portion_Desc", "A normal portion that restores 20% of HP." },
-            { "kr_Normal_Portion_Desc", "HP 20% 를 회복하는 평범한 포션." },
-            { "jp_Normal_Portion_Desc", "HP 20% を回復する通常ポーション"},
-            
-
+            { "en_Normal_Potion", "Normal Potion" },
+            { "kr_Normal_Potion", "평범한 포션" },
+            { "jp_Normal_Potion", "通常ポーション" },
+            { "en_Normal_Potion_Desc", "A normal portion that restores 25% of HP." },
+            { "kr_Normal_Potion_Desc", "HP 25% 를 회복하는 평범한 포션." },
+            { "jp_Normal_Potion_Desc", "HP 25% を回復する通常ポーション"},
+            //id = 2
+            { "en_Great_Potion", "Great Potion" },
+            { "kr_Great_Potion", "훌륭한 포션" },
+            { "jp_Great_Potion", "素晴らしいポーション" },
+            { "en_Great_Potion_Desc", "A great portion that restores 50% of HP." },
+            { "kr_Great_Potion_Desc", "HP 50% 를 회복하는 훌륭한 포션." },
+            { "jp_Great_Potion_Desc", "HP 50% を回復する素晴らしいポーション"},
+            //id = 3
+            { "en_Elixir", "Elixir" },
+            { "kr_Elixir", "엘릭서" },
+            { "jp_Elixir", "エリクサー" },
+            { "en_Elixir_Desc", "A powerful portion that restores 100% of HP." },
+            { "kr_Elixir_Desc", "HP 100% 를 회복하는 강력한 포션." },
+            { "jp_Elixir_Desc", "HP 100% を回復する強力なポーション"},
+            //id = 4
+            { "en_Mythic_Elixir", "Mythic Elixir" },
+            { "kr_Mythic_Elixir", "신화의 엘릭서" },
+            { "jp_Mythic_Elixir", "神話のエリクサー" },
+            { "en_Mythic_Elixir_Desc", "Revives the dead with 50% of HP." },
+            { "kr_Mythic_Elixir_Desc", "HP 50% 를 회복하며 죽은 자를 부활시키는 엘릭서." },
+            { "jp_Mythic_Elixir_Desc", "HP 50% を回復し、死者を蘇らせるエリクサー"},
 
         };
     }
