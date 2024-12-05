@@ -6,4 +6,26 @@ using UnityEngine;
 public class InventoryScriptableObject : ScriptableObject
 {
     public List<Item> items = new List<Item>();
+
+    [SerializeField] private int foodAmount;
+    [SerializeField] private int armorAmount;
+
+
+    public void FoodButton(int i)
+    {
+        foodAmount += i;
+    }
+    public void ArmorButton(int i)
+    {
+        armorAmount += i;
+    }
+
+    public int getFoodAmount()
+    {
+        return foodAmount;
+    }
+    public int getArmorAmount()
+    {
+        return armorAmount;
+    }
 }

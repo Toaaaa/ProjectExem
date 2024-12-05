@@ -17,6 +17,7 @@ public class InventoryManager : MonoBehaviour
     public int bagSizeMax = 32;//업그레이드로 늘어날 수 있는 최대 크기
     public int storageSize = 60;
 
+
     private void Start()
     {
         GameManager.Instance.inventoryManager = this;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class InventoryUI : MonoBehaviour
     public int currentSize; //현재 인벤토리 크기 (내용물이 있는 슬롯의 개수)
     public int maxSize; //인벤토리 크기 (최대 슬롯 개수)
     public TextMeshProUGUI sizeText; //인벤토리 크기 표시 텍스트
+    //////////식량 및 방어구 버튼///////////
+    [SerializeField] private TextMeshProUGUI foodAmount;
+    [SerializeField] private TextMeshProUGUI armorAmount;
 
     private void Start()
     {
@@ -44,6 +48,7 @@ public class InventoryUI : MonoBehaviour
                 scrollRect.enabled = true; // 스크롤 활성화
             GameManager.Instance.inventoryManager.storageUI = this;
             GenerateSlotsStorage();
+            maxSize = GameManager.Instance.inventoryManager.storageSize;
         }
         else
         {
@@ -51,8 +56,8 @@ public class InventoryUI : MonoBehaviour
                 scrollRect.enabled = false; // 스크롤 비활성화
             GameManager.Instance.inventoryManager.bagUI = this;
             GenerateSlots();
+            maxSize = GameManager.Instance.inventoryManager.bagpackSize;
         }
-        maxSize = GameManager.Instance.inventoryManager.bagSizeMax;
 
         isInitialized = true;
         UpdateUI();//getfilledslotindex 마지막에 실행.
@@ -159,7 +164,7 @@ public class InventoryUI : MonoBehaviour
             {
                 slots[i].slotBlocked = false;
                 slots[i].ClearSlot();
-                slots[i].ZeroAmout();
+                slots[i].ZeroAmout();      
             }
             else // 나머지 슬롯 비활성화
             {
@@ -169,11 +174,34 @@ public class InventoryUI : MonoBehaviour
                     slots[i].ZeroAmout();
                 }
             }
+            slots[i].isFoodORArmor = false;
         }
-        GetFilledSlotIndex();//currentSize (현재 아이템이 들어있는 슬롯 개수) 업데이트
+        //인벤토리 상의 식량 또는 방어구를 슬롯에 표시
+        int foodAndArmor = inventoryData.getFoodAmount() + inventoryData.getArmorAmount();
+        for (int i = slots.Length - 1; i >= slotIndex; i--)
+        {
+            if (!isStorage && !slots[i].slotBlocked)
+            {
+                if(foodAndArmor > 0)
+                {
+                    slots[i].isFoodORArmor = true;
+                    foodAndArmor--;
+                }
+            }
+        }
 
-        if (!isStorage)//가방의 경우 하단에 현재 크기 표시
+            GetFilledSlotIndex();//currentSize (현재 아이템이 들어있는 슬롯 개수) 업데이트
+       
+        if (!isStorage)//가방의 경우만, 식량,방어구,가방용량 표시.
+        {
+            foodAmount.text = $"x{inventoryData.getFoodAmount().ToString()}";
+            armorAmount.text = $"x{inventoryData.getArmorAmount().ToString()}";
             sizeText.text = $"{currentSize}/{maxSize}";
+        }
+
+#if UNITY_EDITOR
+EditorUtility.SetDirty(inventoryData);//인벤토리 scriptable object에 변경사항 저장(에디터 상의 변경사항을 유지)
+#endif
     }
     private void GetFilledSlotIndex()//아이템이 들어있는 슬롯 개수
     {
@@ -185,6 +213,8 @@ public class InventoryUI : MonoBehaviour
                 index++;
             }
         }
+        if (!isStorage)//가방의 경우
+            index += inventoryData.getFoodAmount() + inventoryData.getArmorAmount();
         currentSize = index;
     }
     private void ScrollToTop()
@@ -205,5 +235,42 @@ public class InventoryUI : MonoBehaviour
         {
             panelRect.anchoredPosition = panelPosBag;
         }
+    }
+
+    public void FoodAddButton()
+    {
+        if(currentSize < maxSize)
+        {
+            inventoryData.FoodButton(1);
+            UpdateUI();
+        }
+    }
+    public void ArmorAddButton()
+    {
+        if (currentSize < maxSize)
+        {
+            inventoryData.ArmorButton(1);
+            UpdateUI();
+        }
+    }
+    public void FoodSubButton()
+    {
+        if (inventoryData.getFoodAmount() > 0)
+        {
+            inventoryData.FoodButton(-1);
+            UpdateUI();
+        }
+    }
+    public void ArmorSubButton()
+    {
+        if (inventoryData.getArmorAmount() > 0)
+        {
+            inventoryData.ArmorButton(-1);
+            UpdateUI();
+        }
+    }
+    public InventorySlot GetSlot(int index)
+    {
+        return slots[index];
     }
 }

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - itemData: {fileID: 11400000, guid: 536c2f272f0895a4592879f0a5063629, type: 2}
-    quantity: 3
+    quantity: 15
   - itemData: {fileID: 11400000, guid: f91bc966ba7c3f643a9ff71f704c2fb2, type: 2}
-    quantity: 1
+    quantity: 2
   - itemData: {fileID: 11400000, guid: 782db573abb6ac4408cbea236f57ca45, type: 2}
-    quantity: 1
+    quantity: 7
   - itemData: {fileID: 11400000, guid: d41ea4a0e8aaa2e46a7d30ffea6abbbf, type: 2}
     quantity: 1
   - itemData: {fileID: 11400000, guid: 4d4a5cee422915b4dbf8f46f681a0cc1, type: 2}
     quantity: 0
+  foodAmount: 0
+  armorAmount: 0

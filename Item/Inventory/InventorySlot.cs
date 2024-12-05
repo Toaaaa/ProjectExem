@@ -18,9 +18,12 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public bool isItemOn; // 아이템이 있는지 여부
     public bool isStorage; //false면 인벤토리, true면 창고
     public bool slotBlocked; // 아직 개방되지 않은 슬롯
+    public bool isFoodORArmor; //식량이나 방어구가 들어있는 슬롯
 
     [SerializeField]
     private Sprite blockedIcon;
+    [SerializeField]
+    private Sprite FoodOrArmored;
 
     private void Start()
     {
@@ -61,9 +64,9 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             if (isStorage)//창고에 있는 아이템을 클릭한 경우
             {
                 // 가방 용량 확인
-                if (inventoryManager.bagpack.GetAllItems().Count >= inventoryManager.bagpackSize)
+                if (!CanAddItemToBagpack(item.itemData, 1))
                 {
-                    Debug.LogWarning("가방 용량이 가득 찼습니다! 더 이상 아이템을 넣을 수 없습니다.");
+                    Debug.Log("가방 용량이 가득 찼습니다! 더 이상 아이템을 넣을 수 없습니다.");
                     //가방이 가득 찼음. >> 추후 UX적인 각종 처리.
                     return;
                 }
@@ -114,17 +117,94 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     private void IconDisplay()
     {
+
         if(slotBlocked)
         {
             icon.sprite = blockedIcon;
             button.interactable = false;
         }
         else
-        {/*
-            if (item != null)
+        {
+            if (isFoodORArmor)
+            {
+                icon.sprite = FoodOrArmored;
                 icon.enabled = true;
+                button.interactable = false;
+            }
             else
-                icon.enabled = false;*/
+            {
+                if (item != null)
+                {
+                    icon.enabled = true;
+                    button.interactable = true;
+                }
+                else
+                {
+                    icon.enabled = false;
+                    button.interactable = false;
+                }
+            }
         }
+    }
+
+    private bool CanAddItemToBagpack(ItemData itemData, int quantityToAdd) // 가방에 아이템을 추가할 수 있는지 빈 공간 확인
+    {
+        int remainingQuantity = quantityToAdd;
+        bool isStackable = false; //가방에 있는 아이템이 스택이 가능한지
+
+        // 현재 점유 슬롯 개수 계산
+        int currentSlots = 0;
+        foreach (var existingItem in inventoryManager.bagpack.GetAllItems())
+        {
+            int stackCount = Mathf.CeilToInt((float)existingItem.quantity / existingItem.itemData.MaxStack);
+            currentSlots += stackCount;
+            if(itemData.ID == existingItem.itemData.ID)
+            {
+                if ((existingItem.quantity % existingItem.itemData.MaxStack) != 0)
+                    isStackable = true;//가방에 있는 아이템이 maxStack을 확인시 여유가 있을떄 true.
+            }
+        }
+        // 식량, 방어구 수량 추가
+        int currentFood = inventoryManager.inventoryData.getFoodAmount();
+        int currentArmor = inventoryManager.inventoryData.getArmorAmount();
+        int totalOccupiedSlots = currentSlots + currentFood + currentArmor;
+        // 슬롯 초과 여부 확인
+        if (totalOccupiedSlots >= inventoryManager.bagpackSize)
+        {
+            if(itemData.Stackable && !isStackable)
+            {
+                return false; // 슬롯이 부족함
+            }
+            else if (isStackable)
+            {
+                //빈칸은 없지만 스택이 가능한 경우 false를 반환하지 않고 넘어감.
+            }
+            else if(inventoryManager.bagUI.GetSlot(currentSlots).FoodOrArmored)//새로 넣으려는 슬롯에 식량이나 방어구가 들어있는 경우
+            {
+                return false; 
+            }
+        }
+        // 1단계: 기존 스택에서 추가 가능 여부 확인
+        foreach (var existingItem in inventoryManager.bagpack.GetAllItems())
+        {
+            if (existingItem.itemData.ID == itemData.ID && itemData.Stackable)
+            {
+                int availableSpace = existingItem.itemData.MaxStack - (existingItem.quantity % existingItem.itemData.MaxStack);
+                if (availableSpace > 0)
+                {
+                    if (availableSpace >= remainingQuantity)
+                    {
+                        return true; // 기존 스택에서 충분히 추가 가능
+                    }
+                    remainingQuantity -= availableSpace; // 일부만 채워지고 남은 양 갱신
+                }
+            }
+        }
+
+        // 2단계: 남은 수량 처리 (빈 슬롯 필요)
+        int emptySlots = inventoryManager.bagpackSize - totalOccupiedSlots;
+        int slotsNeeded = Mathf.CeilToInt((float)remainingQuantity / itemData.MaxStack);
+
+        return emptySlots >= slotsNeeded; // 빈 슬롯으로 남은 수량 처리 가능 여부 반환
     }
 }
