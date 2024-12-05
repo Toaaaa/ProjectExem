@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.UIElements;
 
 public class InventoryUI : MonoBehaviour
@@ -28,7 +29,8 @@ public class InventoryUI : MonoBehaviour
 
     //////////인벤토리 자체 정보///////////
     public int currentSize; //현재 인벤토리 크기 (내용물이 있는 슬롯의 개수)
-    public int maxSize; //최대 인벤토리 크기 (최대 슬롯 개수)
+    public int maxSize; //인벤토리 크기 (최대 슬롯 개수)
+    public TextMeshProUGUI sizeText; //인벤토리 크기 표시 텍스트
 
     private void Start()
     {
@@ -51,10 +53,9 @@ public class InventoryUI : MonoBehaviour
             GenerateSlots();
         }
         maxSize = GameManager.Instance.inventoryManager.bagSizeMax;
-        currentSize = GetEmptySlotIndex();
 
         isInitialized = true;
-        UpdateUI();
+        UpdateUI();//getfilledslotindex 마지막에 실행.
     }
 
     private void OnEnable()
@@ -63,6 +64,7 @@ public class InventoryUI : MonoBehaviour
         {
             UpdateUI();
             ScrollToTop();
+
         }
     }
 
@@ -125,17 +127,35 @@ public class InventoryUI : MonoBehaviour
             }
         }
 
+        int slotIndex = 0;
+
         // 유효한 아이템을 슬롯에 순차적으로 배치
-        int itemIndex = 0;
-        for (int i = 0; i < slots.Length; i++)
+        foreach (var item in validItems)
         {
-            if (itemIndex < validItems.Count) // 유효한 아이템이 남아 있는 경우
+            int remainingQuantity = item.quantity;
+
+            while (remainingQuantity > 0 && slotIndex < slots.Length)
             {
-                slots[i].slotBlocked = false;
-                slots[i].AddItem(validItems[itemIndex]);
-                itemIndex++;
+                int stackAmount = Mathf.Min(item.itemData.MaxStack, remainingQuantity);
+
+                slots[slotIndex].slotBlocked = false;
+                slots[slotIndex].AddItem(new Item(item.itemData, stackAmount));
+
+                remainingQuantity -= stackAmount;
+                slotIndex++;
             }
-            else if (i < GameManager.Instance.inventoryManager.bagpackSize || isStorage) // 유효한 슬롯 범위 내
+
+            // 슬롯이 다 찼는데도 아이템이 남는 경우는 처리하지 않음 (용량 초과 상태)
+            if (remainingQuantity > 0)
+            {
+                Debug.LogWarning($"아이템 {item.itemData.ID}의 양이 슬롯 용량을 초과했습니다!");
+            }
+        }
+
+        // 남은 슬롯 초기화 또는 비활성화
+        for (int i = slotIndex; i < slots.Length; i++)
+        {
+            if (i < GameManager.Instance.inventoryManager.bagpackSize || isStorage) // 유효한 슬롯 범위 내
             {
                 slots[i].slotBlocked = false;
                 slots[i].ClearSlot();
@@ -150,18 +170,22 @@ public class InventoryUI : MonoBehaviour
                 }
             }
         }
+        GetFilledSlotIndex();//currentSize (현재 아이템이 들어있는 슬롯 개수) 업데이트
+
+        if (!isStorage)//가방의 경우 하단에 현재 크기 표시
+            sizeText.text = $"{currentSize}/{maxSize}";
     }
-    private int GetEmptySlotIndex()//currentSize를 구하는 함수
+    private void GetFilledSlotIndex()//아이템이 들어있는 슬롯 개수
     {
         int index = 0;
         for (int i = 0; i < slots.Length; i++)
         {
-            if (!slots[i].isItemOn)
+            if (slots[i].isItemOn)
             {
                 index++;
             }
         }
-        return maxSize - index;
+        currentSize = index;
     }
     private void ScrollToTop()
     {

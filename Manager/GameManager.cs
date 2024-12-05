@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -60,13 +61,21 @@ public class GameManager : MonoBehaviour
     public void ForTheTest0()
     {
         inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(2), 1);
-        inventoryManager.inventoryData.items[0].quantity += 1;
-        //이후에는 0번이라는 인덱스 숫자에 선택한 아이템의.id를 넣는 방식으로 변경.
+        inventoryManager.inventoryData.items[2].quantity += 1;
+        #if UNITY_EDITOR
+        EditorUtility.SetDirty(inventoryManager.inventoryData);
+        #endif
+        inventoryManager.bagUI.UpdateUI();
+        //이후에는 인덱스 숫자에 선택한 아이템의.id를 넣는 방식으로 변경.
     }
     public void ForTheTest1()
     {
         inventoryManager.bagpack.AddItem(ItemDatabase.Instance.GetItem(3), 1);
-        inventoryManager.inventoryData.items[1].quantity += 1;
+        inventoryManager.inventoryData.items[3].quantity += 1;
+        #if UNITY_EDITOR
+        EditorUtility.SetDirty(inventoryManager.inventoryData);
+        #endif
+        inventoryManager.bagUI.UpdateUI();
     }
     public void GameStart()
     {
@@ -87,7 +96,6 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator LoadSceneWithBlackout(string sceneName)//블랙아웃 효과와 함께 씬을 로드하는 함수.
     {
-        Debug.Log("블랙아웃 시작");
         // 1. 블랙아웃 실행 (1초 동안 어두워짐)
         mainCanvas.GetComponent<CanvasGroup>().blocksRaycasts = true;
         yield return BlackOut.DOFade(1f, 1f).WaitForCompletion();
@@ -111,7 +119,6 @@ public class GameManager : MonoBehaviour
         BlackOut.DOFade(0f, 1f).OnComplete(() => //동기 방식인 waitforcompletion을 사용하니, 씬 내용물이 많은경우 제대로 작동하지 않아, 비동기 방식인 oncomplete를 사용.
         {
             mainCanvas.GetComponent<CanvasGroup>().blocksRaycasts = false;
-            Debug.Log("블랙아웃 해제");
         });
     }
     public void BlackOutScreen()//화면 블랙아웃 효과.

@@ -7,11 +7,13 @@ using static UnityEditor.Progress;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private List<Item> items = new List<Item>();
-    [SerializeField] private int maxCapacity = 20;
+    public int maxCapacity = 60;
     [SerializeField] private bool isStorage;//창고일 경우 최대 용량이 계속 늘어남.
 
     private void OnEnable()
     {
+        maxCapacity = isStorage ? 60 : GameManager.Instance.inventoryManager.bagpackSize;
+
         if(isStorage)
         {
             GameManager.Instance.inventoryManager.storage = this;

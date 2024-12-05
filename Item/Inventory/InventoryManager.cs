@@ -13,8 +13,8 @@ public class InventoryManager : MonoBehaviour
     public InventoryUI bagUI;
     public InventoryUI storageUI;
 
-    public int bagpackSize = 20;
-    public int bagSizeMax = 32;
+    public int bagpackSize = 20;//현재 가방의 전체 슬롯 개수
+    public int bagSizeMax = 32;//업그레이드로 늘어날 수 있는 최대 크기
     public int storageSize = 60;
 
     private void Start()
@@ -51,7 +51,8 @@ public class InventoryManager : MonoBehaviour
 
     public void LoadInventory()
     {
-        int j = ItemDatabase.Instance.itemDataCount();
+        //int j = ItemDatabase.Instance.itemDataCount();
+        int j = inventoryData.items.Count;
         for (int i = 0; i < j; i++)
         {
             bagpack.AddItem(inventoryData.items[i].itemData, inventoryData.items[i].quantity);
@@ -59,7 +60,8 @@ public class InventoryManager : MonoBehaviour
     }
     public void LoadStorage()
     {
-        int j = ItemDatabase.Instance.itemDataCount();
+        //int j = ItemDatabase.Instance.itemDataCount();
+        int j = inventoryStorageData.items.Count;
         for (int i = 0; i < j; i++)
         {
             storage.AddItem(inventoryStorageData.items[i].itemData, inventoryStorageData.items[i].quantity);

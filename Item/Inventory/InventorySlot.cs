@@ -52,7 +52,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         IconDisplay();
     }
-    public void OnSlotClicked()
+    public void OnSlotClicked()//클릭시 아이템의 이동(가방<<O>>창고)
     {
 
         if (item != null && inventoryManager != null)
@@ -60,17 +60,24 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             //클릭한 아이템을 isStorage에 따라서 인벤토리에서 창고로, 창고에서 인벤토리로 이동시킨다.
             if (isStorage)//창고에 있는 아이템을 클릭한 경우
             {
-                if (inventoryManager.bagpackSize < inventoryManager.bagSizeMax)
+                // 가방 용량 확인
+                if (inventoryManager.bagpack.GetAllItems().Count >= inventoryManager.bagpackSize)
                 {
-                    inventoryManager.bagpack.AddItem(item.itemData, 1);
-                    inventoryManager.storage.RemoveItem(item.itemData, 1);
-                    inventoryManager.bagpack.ApplyToScriptable(item, inventoryManager.inventoryData);//인벤토리의 변경사항을 스크립터블에 적용.
-                    inventoryManager.storage.ApplyToScriptable(item,inventoryManager.inventoryStorageData);//창고의 변경사항을 스크립터블에 적용.
+                    Debug.LogWarning("가방 용량이 가득 찼습니다! 더 이상 아이템을 넣을 수 없습니다.");
+                    //가방이 가득 찼음. >> 추후 UX적인 각종 처리.
+                    return;
                 }
+
+                // 아이템 이동
+                inventoryManager.bagpack.AddItem(item.itemData, 1);
+                inventoryManager.storage.RemoveItem(item.itemData, 1);
+                inventoryManager.bagpack.ApplyToScriptable(item, inventoryManager.inventoryData);
+                inventoryManager.storage.ApplyToScriptable(item, inventoryManager.inventoryStorageData);
             }
             else
             {
-                //if (GameManager.Instance.inventoryManager.storageSize < GameManager.Instance.inventoryManager.storageSizeMax) //창고는 최대 용량 없음.
+                //if (GameManager.Instance.inventoryManager.storageSize < GameManager.Instance.inventoryManager.storageSizeMax) 
+                //창고는 최대 용량 없음.
                 inventoryManager.storage.AddItem(item.itemData, 1);
                 inventoryManager.bagpack.RemoveItem(item.itemData, 1);
                 inventoryManager.storage.ApplyToScriptable(item,inventoryManager.inventoryStorageData);//창고의 변경사항을 스크립터블에 적용.
