@@ -26,6 +26,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField]
     private bool isStorage; //false면 인벤토리, true면 창고
     [SerializeField]
+    private bool isShopStorage; //상점 UI에서 보이는 창고 슬롯인지
+    [SerializeField]
     private ScrollRect scrollRect; //스크롤뷰
 
     //////////인벤토리 자체 정보///////////
@@ -115,6 +117,7 @@ public class InventoryUI : MonoBehaviour
             slots[i] = slotObj.GetComponent<RealSlot>().slotPrefab;//실제로 아이템의 정보를 가질 슬롯(slotPrefab).
             slots[i].inventoryUI = this;
             slots[i].isStorage = isStorage;
+            slots[i].isShopStorage = isShopStorage;
         }
 
         ScrollToTop(); // 스크롤 맨 위로 이동

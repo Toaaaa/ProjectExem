@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 public class MainLobby : MonoBehaviour
 {
     GameManager gameManager;
+
+    ////메인로비 UI
+    public GameObject ShopUI;
+    public GameObject TrainingUI;
+    public GameObject PrepareUI;
+
+
     private void Start()
     {
         gameManager = GameManager.Instance;
@@ -15,14 +22,30 @@ public class MainLobby : MonoBehaviour
     {
         StartCoroutine(gameManager.LoadSceneWithBlackout("MainScene"));
     }
-    public void GoToTraining()//훈련장으로 이동
+
+
+    public void StartPrepare()
     {
-        //SceneManager.LoadScene("TrainingScene");
-        Debug.Log("훈련장으로 이동");
+        PrepareUI.SetActive(true);
     }
-    public void GoToShop()//상점으로 이동
+    public void EndPrepare()
     {
-        //SceneManager.LoadScene("ShopScene");
-        Debug.Log("상점으로 이동");
+        PrepareUI.SetActive(false);
+    }
+    public void StartTraining()//훈련장으로 이동
+    {
+        TrainingUI.SetActive(true);
+    }
+    public void EndTraining()
+    {
+        TrainingUI.SetActive(false);
+    }
+    public void OpenShop()//상점으로 이동
+    {
+        ShopUI.SetActive(true);
+    }
+    public void CloseShop()
+    {
+        ShopUI.SetActive(false);
     }
 }

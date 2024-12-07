@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public CharacterManager characterManager;
     public PartyManager partyManager;
     public InventoryManager inventoryManager;
+    public ShopUIManager shopUIManager;
 
     public Canvas mainCanvas;//블랙아웃과 옵션등 게임 전반에서 쓰일 UI들이 담긴 캔버스.
     [SerializeField]

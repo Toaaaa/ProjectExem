@@ -17,6 +17,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public bool isItemOn; // 아이템이 있는지 여부
     public bool isStorage; //false면 인벤토리, true면 창고
+    public bool isShopStorage; //상점 UI에서 보이는 창고 슬롯인지
     public bool slotBlocked; // 아직 개방되지 않은 슬롯
     public bool isFoodORArmor; //식량이나 방어구가 들어있는 슬롯
 
@@ -57,7 +58,11 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     }
     public void OnSlotClicked()//클릭시 아이템의 이동(가방<<O>>창고)
     {
-
+        if(isShopStorage)//상점UI에서 창고의 슬롯을 클릭시.
+        {
+            //그냥 리턴.
+            return;
+        }
         if (item != null && inventoryManager != null)
         {
             //클릭한 아이템을 isStorage에 따라서 인벤토리에서 창고로, 창고에서 인벤토리로 이동시킨다.
@@ -206,5 +211,9 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         int slotsNeeded = Mathf.CeilToInt((float)remainingQuantity / itemData.MaxStack);
 
         return emptySlots >= slotsNeeded; // 빈 슬롯으로 남은 수량 처리 가능 여부 반환
+    }
+    public Item GetItem()
+    {
+        return item;
     }
 }

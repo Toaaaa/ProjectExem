@@ -9,6 +9,7 @@ public class InventoryScriptableObject : ScriptableObject
 
     [SerializeField] private int foodAmount;
     [SerializeField] private int armorAmount;
+    [SerializeField] private int gold;
 
 
     public void FoodButton(int i)
@@ -19,6 +20,10 @@ public class InventoryScriptableObject : ScriptableObject
     {
         armorAmount += i;
     }
+    public void GoldChange(int i)
+    {
+        gold += i;
+    }
 
     public int getFoodAmount()
     {
@@ -27,5 +32,9 @@ public class InventoryScriptableObject : ScriptableObject
     public int getArmorAmount()
     {
         return armorAmount;
+    }
+    public int getGold()
+    {
+        return gold;
     }
 }

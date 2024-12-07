@@ -12,6 +12,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private Sprite icon;
     [SerializeField] private bool stackable;
     [SerializeField] private int maxStack;
+    [SerializeField] private int itemPrice;
     [SerializeField] private ItemRarity rarity;
 
 
@@ -26,6 +27,7 @@ public class ItemData : ScriptableObject
     public Sprite Icon => icon;
     public bool Stackable => stackable;
     public int MaxStack => maxStack;
+    public int ItemPrice => itemPrice;
     public ItemRarity Rarity => rarity;
 
 }
