@@ -7,7 +7,7 @@ using TMPro;
 public class ShopUIManager : MonoBehaviour
 {
     
-    public InventoryScriptableObject shopData;//상점 데이터
+    public ShopScriptableObject shopData;//상점 데이터
     //public
     public InventoryUI storageUI;//상점 UI옆에 표시될 창고 UI
     public TextMeshProUGUI goldText;//골드 표시 텍스트
@@ -36,7 +36,7 @@ public class ShopUIManager : MonoBehaviour
         }
     }
 
-    private void UpdateGold()
+    public void UpdateGold()
     {
         goldText.text = "<sprite=0> : " + storageUI.inventoryData.getGold();
     }

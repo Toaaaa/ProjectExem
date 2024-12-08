@@ -37,4 +37,8 @@ public class InventoryScriptableObject : ScriptableObject
     {
         return gold;
     }
+    public int setGold(int i)
+    {
+        return gold = i;
+    }
 }

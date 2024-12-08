@@ -14,6 +14,7 @@ public class ShopUI : MonoBehaviour
     public Transform slotsParent; // Grid Layout이 적용된 자기자신
     public ShopScriptableObject shopData; // 데이터
     public ItemInfoPanel itemInfoPanel; // 아이템 정보 패널
+    public ShopBuyPopup shopBuyPopup; // 구매 팝업
     private RectTransform panelRect; // 패널의 RectTransform
     [SerializeField]
     private Vector2 panelPosStorage; // 패널이 창고위에
@@ -30,6 +31,7 @@ public class ShopUI : MonoBehaviour
     private void Start()
     {
         panelRect = itemInfoPanel.GetComponent<RectTransform>();
+        GameManager.Instance.inventoryManager.shopUI = this;
         isSpecialItem = false;
             if (scrollRect != null)
                 scrollRect.enabled = true; // 스크롤 활성화
@@ -50,7 +52,7 @@ public class ShopUI : MonoBehaviour
     }
 
 
-    private void GenerateSlotsShop()
+    private void GenerateSlotsShop()//이거 게임 껏다키면서 리롤할 수도 있으니깐, 참고해서 추후 코드 수정.
     {
         int maxSize = shopData.items.Count;
         if(shopData.RandomItem() != shopData.items[0])
@@ -80,7 +82,8 @@ public class ShopUI : MonoBehaviour
         {
             GameObject slotObj = Instantiate(slotPrefab, slotsParent);
             slots[i] = slotObj.GetComponent<RealSlot>().slotPrefab;//실제로 아이템의 정보를 가질 슬롯(slotPrefab).
-            slots[i].inventoryUI = shopUIManager.storageUI;
+            slots[i].inventoryUI = shopUIManager.storageUI;//지금 당장은 inventoryUI에서 사용하는 정보는 정보패널의 위치뿐이라 무방할듯.
+            slots[i].isShopStorage = true;
         }
 
         ScrollToTop(); // 스크롤 맨 위로 이동
@@ -92,7 +95,7 @@ public class ShopUI : MonoBehaviour
         List<Item> validItems = new List<Item>();
         foreach (var item in shopData.items)
         {
-            if (item.quantity > 0)
+            if (item.quantity >= 0) //상점의 경우 0개가 되어도 슬롯을 비우지 않음.
             {
                 validItems.Add(item);
             }
@@ -106,60 +109,32 @@ public class ShopUI : MonoBehaviour
         // 유효한 아이템을 슬롯에 순차적으로 배치
         foreach (var item in validItems)
         {
-            int remainingQuantity = item.quantity;
-
-            while (remainingQuantity > 0 && slotIndex < slots.Length)
+            if (slotIndex >= slots.Length)
             {
-                int stackAmount = Mathf.Min(item.itemData.MaxStack, remainingQuantity);
-
-                slots[slotIndex].slotBlocked = false;
-                slots[slotIndex].AddItem(new Item(item.itemData, stackAmount));
-
-                remainingQuantity -= stackAmount;
-                slotIndex++;
+                Debug.LogWarning("슬롯이 부족합니다. 상점 데이터를 확인하세요.");
+                break;
             }
 
-            // 슬롯이 다 찼는데도 아이템이 남는 경우는 처리하지 않음 (용량 초과 상태)
-            if (remainingQuantity > 0)
-            {
-                Debug.LogWarning($"아이템 {item.itemData.ID}의 양이 슬롯 용량을 초과했습니다!");
-            }
+            slots[slotIndex].slotBlocked = false;
+            slots[slotIndex].AddItem(new Item(item.itemData, item.quantity));
+            slotIndex++;
         }
 
-        // 남은 슬롯 초기화 또는 비활성화
+        // 남은 슬롯 초기화 또는 비활성화 (수량 0도 슬롯 유지)
         for (int i = slotIndex; i < slots.Length; i++)
         {
-            if (i < GameManager.Instance.inventoryManager.bagpackSize) // 유효한 슬롯 범위 내
-            {
-                slots[i].slotBlocked = false;
-                slots[i].ClearSlot();
-                slots[i].ZeroAmout();
-            }
-            else // 나머지 슬롯 비활성화
-            {
-                slots[i].slotBlocked = true;
-                slots[i].ZeroAmout();                
-            }
-            slots[i].isFoodORArmor = false;
+                // 상점에서는 슬롯을 초기화하지 않음 (0도 유지)
+                if (shopData.getItemQuantity(slots[i].GetItem().itemData) == 0)
+                {
+                    slots[i].ZeroAmout(); // 시각적으로 아이템 0 표시
+                }
         }
-
-        GetFilledSlotIndex();//currentSize (현재 아이템이 들어있는 슬롯 개수) 업데이트
 
 #if UNITY_EDITOR
         EditorUtility.SetDirty(shopData);//인벤토리 scriptable object에 변경사항 저장(에디터 상의 변경사항을 유지)
 #endif
     }
-    private void GetFilledSlotIndex()//아이템이 들어있는 슬롯 개수
-    {
-        int index = 0;
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].isItemOn)
-            {
-                index++;
-            }
-        }
-    }
+
     private void ScrollToTop()
     {
         if (scrollRect != null)

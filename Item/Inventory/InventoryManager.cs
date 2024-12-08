@@ -6,12 +6,15 @@ public class InventoryManager : MonoBehaviour
 {
     public InventoryScriptableObject inventoryData;//가방 데이터
     public InventoryScriptableObject inventoryStorageData;//창고 데이터
+    public ShopScriptableObject shopData;//상점 데이터
 
     public Inventory bagpack;
     public Inventory storage;
 
     public InventoryUI bagUI;
     public InventoryUI storageUI;
+    public ShopUI shopUI;
+    public InventoryUI shopStorageUI;
 
     public int bagpackSize = 20;//현재 가방의 전체 슬롯 개수
     public int bagSizeMax = 32;//업그레이드로 늘어날 수 있는 최대 크기
@@ -70,7 +73,9 @@ public class InventoryManager : MonoBehaviour
     }
     public void UpdateUIBoth()
     {
-        bagUI.UpdateUI();
+        if (!shopUI.isActiveAndEnabled)
+            bagUI.UpdateUI();
+
         storageUI.UpdateUI();
     }
 }

@@ -44,7 +44,7 @@ public class InventoryUI : MonoBehaviour
         
         //////////
         
-        if (isStorage)
+        if (isStorage&&!isShopStorage)
         {
             if (scrollRect != null)
                 scrollRect.enabled = true; // 스크롤 활성화
@@ -52,13 +52,21 @@ public class InventoryUI : MonoBehaviour
             GenerateSlotsStorage();
             maxSize = GameManager.Instance.inventoryManager.storageSize;
         }
-        else
+        else if(!isStorage && !isShopStorage)
         {
             if(scrollRect != null)
                 scrollRect.enabled = false; // 스크롤 비활성화
             GameManager.Instance.inventoryManager.bagUI = this;
             GenerateSlots();
             maxSize = GameManager.Instance.inventoryManager.bagpackSize;
+        }
+        else//상점 창고
+        {
+            if (scrollRect != null)
+                scrollRect.enabled = true; // 스크롤 활성화
+            GameManager.Instance.inventoryManager.shopStorageUI = this;
+            GenerateSlotsStorage();
+            maxSize = GameManager.Instance.inventoryManager.storageSize;
         }
 
         isInitialized = true;

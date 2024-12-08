@@ -60,10 +60,15 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if(isShopStorage)//상점UI에서 창고의 슬롯을 클릭시.
         {
+            if(inventoryManager.shopData.getItemQuantity(item.itemData) != 0 )//상점에서 해당 아이템의 수량이 0이 아닐때
+            {
+                inventoryManager.shopUI.shopBuyPopup.gameObject.SetActive(true);//구매창을 활성화.
+                inventoryManager.shopUI.shopBuyPopup.SetItemData(item, inventoryManager.shopData.getItemQuantity(item.itemData));//구매창에 클릭한 아이템의 정보를 전달.
+            }
             //그냥 리턴.
             return;
         }
-        if (item != null && inventoryManager != null)
+        else if (item != null && inventoryManager != null)
         {
             //클릭한 아이템을 isStorage에 따라서 인벤토리에서 창고로, 창고에서 인벤토리로 이동시킨다.
             if (isStorage)//창고에 있는 아이템을 클릭한 경우
@@ -86,10 +91,10 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             {
                 //if (GameManager.Instance.inventoryManager.storageSize < GameManager.Instance.inventoryManager.storageSizeMax) 
                 //창고는 최대 용량 없음.
-                inventoryManager.storage.AddItem(item.itemData, 1);
-                inventoryManager.bagpack.RemoveItem(item.itemData, 1);
-                inventoryManager.storage.ApplyToScriptable(item,inventoryManager.inventoryStorageData);//창고의 변경사항을 스크립터블에 적용.
-                inventoryManager.bagpack.ApplyToScriptable(item,inventoryManager.inventoryData);//인벤토리의 변경사항을 스크립터블에 적용.
+                inventoryManager.storage.AddItem(item.itemData, 1);//temporary 창고에 아이템 추가
+                inventoryManager.bagpack.RemoveItem(item.itemData, 1);//temporary 인벤토리에서 아이템 제거
+                inventoryManager.storage.ApplyToScriptable(item,inventoryManager.inventoryStorageData);//temporary 창고의 변경사항을 스크립터블에 적용.
+                inventoryManager.bagpack.ApplyToScriptable(item,inventoryManager.inventoryData);//temporary 인벤토리의 변경사항을 스크립터블에 적용.
             }
         }
         inventoryManager.UpdateUIBoth();//변경사항 업데이트.

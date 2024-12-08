@@ -19,4 +19,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: fd13fab565b376e4db345fae3e6517ab, type: 3}
   stackable: 1
   maxStack: 3
+  itemPrice: 1
   rarity: 0

@@ -34,6 +34,25 @@ public class LocalizationManager : MonoBehaviour
         {
             // { "언어_Key", "Value" } Key == ItemData.itemNameKey
 
+            //UI 텍스트//
+            //상점
+            { "en_ShopText1", "Are you going to buy this item? " },
+            { "kr_ShopText1", "이 아이템을 구매하시겠습니까?" },
+            { "jp_ShopText1", "このアイテムを購入しますか？" },
+            { "en_ShopText2", "Yes" },
+            { "kr_ShopText2", "네" },
+            { "jp_ShopText2", "はい" },
+            { "en_ShopText3", "No" },
+            { "kr_ShopText3", "아니요" },
+            { "jp_ShopText3", "いいえ" },
+            { "en_ShopText4", "You don't have enough gold." },
+            { "kr_ShopText4", "골드가 부족합니다." },
+            { "jp_ShopText4", "ゴールドが足りません。" },
+            { "en_ShopText5", "Close" },
+            { "kr_ShopText5", "닫기" },
+            { "jp_ShopText5", "閉じる" },
+
+            //아이템 텍스트//
             //id = 0
             { "en_Cheap_Potion", "Cheap Potion" },
             { "kr_Cheap_Potion", "싸구려 포션" },
