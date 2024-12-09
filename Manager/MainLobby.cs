@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,10 @@ public class MainLobby : MonoBehaviour
     public GameObject TrainingUI;
     public GameObject PrepareUI;
 
+    public TextMeshProUGUI shopButtonText;
+    public TextMeshProUGUI trainingButtonText;
+    public TextMeshProUGUI prepareButtonText;
+
 
     private void Start()
     {
@@ -23,6 +28,12 @@ public class MainLobby : MonoBehaviour
         StartCoroutine(gameManager.LoadSceneWithBlackout("MainScene"));
     }
 
+    private void Update()
+    {
+        shopButtonText.text = gameManager.localizationManager.GetLocalizedString("ShopButton");
+        trainingButtonText.text = gameManager.localizationManager.GetLocalizedString("TrainingButton");
+        prepareButtonText.text = gameManager.localizationManager.GetLocalizedString("PrepareButton");
+    }
 
     public void StartPrepare()
     {

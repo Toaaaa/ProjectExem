@@ -14,12 +14,17 @@ public class GameManager : MonoBehaviour
     public PartyManager partyManager;
     public InventoryManager inventoryManager;
     public ShopUIManager shopUIManager;
+    public LocalizationManager localizationManager;
+    public ResolutionManager resolutionManager;
 
     public Canvas mainCanvas;//블랙아웃과 옵션등 게임 전반에서 쓰일 UI들이 담긴 캔버스.
     [SerializeField]
     Image BlackOut;
     [SerializeField]
-    GameObject OptionUI;
+    SettingUI OptionUI;
+
+    public bool isPopupOn;
+    public bool isMainUIOn;
 
     private void Awake()
     {
@@ -58,6 +63,13 @@ public class GameManager : MonoBehaviour
             ForTheTest1();
             //inventoryManager.SaveInventory();
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isMainUIOn)
+            {
+                OptionUI.gameObject.SetActive(true);
+            }
+        }
     }
     public void ForTheTest0()
     {
@@ -93,7 +105,7 @@ public class GameManager : MonoBehaviour
     }
     public void OptionOpen()
     {
-
+        OptionUI.gameObject.SetActive(true);
     }
     public IEnumerator LoadSceneWithBlackout(string sceneName)//블랙아웃 효과와 함께 씬을 로드하는 함수.
     {

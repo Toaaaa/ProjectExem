@@ -14,6 +14,7 @@ public class LocalizationManager : MonoBehaviour
 
     private void Awake()
     {
+        //GameManager.Instance.localizationManager = this;
         if (Instance == null)
         {
             Instance = this;
@@ -52,6 +53,39 @@ public class LocalizationManager : MonoBehaviour
             { "kr_ShopText5", "닫기" },
             { "jp_ShopText5", "閉じる" },
 
+            //메인 로비
+            { "en_ShopButton", "Go to Shop" },
+            { "kr_ShopButton", "상점으로 이동" },
+            { "jp_ShopButton", "ショップへ" },
+            { "en_TrainingButton", "Go to Training" },
+            { "kr_TrainingButton", "훈련장으로 이동" },
+            { "jp_TrainingButton", "トレーニングへ" },
+            { "en_PrepareButton", "Prepare for the Dungeon" },
+            { "kr_PrepareButton", "던전입장 준비" },
+            { "jp_PrepareButton", "ダンジョンへ" },
+            { "en_InventoryButton", "Go to Inventory" },
+            { "kr_InventoryButton", "인벤토리로 이동" },
+            { "jp_InventoryButton", "インベントリへ" },
+            { "en_OptionButton", "Option" },
+            { "kr_OptionButton", "옵션" },
+            { "jp_OptionButton", "オプション" },
+            { "en_ExitButton", "Exit" },
+            { "kr_ExitButton", "게임종료" },
+            { "jp_ExitButton", "ゲーム終了" },
+
+            //옵션
+            { "en_OptionWindowToggle", "Window mode Toggle" },
+            { "kr_OptionWindowToggle", "창모드 토글" },
+            { "jp_OptionWindowToggle", "ウィンドウモードトグル" },
+            { "en_OptionLanguage", "Language :" },
+            { "kr_OptionLanguage", "언어 :" },
+            { "jp_OptionLanguage", "言語 :" },
+            { "en_OptionEndGame", "End Game" },
+            { "kr_OptionEndGame", "게임종료" },
+            { "jp_OptionEndGame", "ゲーム終了" },
+            { "en_Resolution", "Resolution" },
+            { "kr_Resolution", "해상도" },
+            { "jp_Resolution", "解像度" },
             //아이템 텍스트//
             //id = 0
             { "en_Cheap_Potion", "Cheap Potion" },

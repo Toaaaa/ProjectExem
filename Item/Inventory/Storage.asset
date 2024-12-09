@@ -25,4 +25,4 @@ MonoBehaviour:
     quantity: 0
   foodAmount: 0
   armorAmount: 0
-  gold: 0
+  gold: 200
