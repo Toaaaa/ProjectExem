@@ -28,12 +28,4 @@ public class SettingUI : MonoBehaviour
         language.text = GameManager.Instance.localizationManager.GetLocalizedString("OptionLanguage");
         exit.text = GameManager.Instance.localizationManager.GetLocalizedString("OptionEndGame");
     }
-
-    public void LanguageChange()//만약 세팅 창에서 언어를 변경 + 클릭하여 적용시 해당 함수를 호출.
-    {
-        OptionWindowToggle.text = GameManager.Instance.localizationManager.GetLocalizedString("OptionWindowToggle");
-        resolution.text = GameManager.Instance.localizationManager.GetLocalizedString("Resolution");
-        language.text = GameManager.Instance.localizationManager.GetLocalizedString("OptionLanguage");
-        exit.text = GameManager.Instance.localizationManager.GetLocalizedString("OptionEndGame");
-    }
 }

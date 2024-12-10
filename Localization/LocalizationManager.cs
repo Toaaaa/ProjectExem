@@ -141,9 +141,35 @@ public class LocalizationManager : MonoBehaviour
         return key;
     }
 
-    public void SetLanguage(string languageCode) //설정에서 해당 함수에 접근하여 언어 변경.
+    public void SetLanguage(string languageCode)//해당 함수를 호출하여 언어 변경
     {
         currentLanguage = languageCode;
         // en, kr, jp 등의 언어 코드를 받아서 변경
+
+        // PlayerPrefs에 저장
+        PlayerPrefs.SetString("Language", languageCode);
+        PlayerPrefs.Save();
+
+        Debug.Log($"언어가 변경되었습니다: {languageCode}");
+
+        // 변경된 언어를 UI에 반영
+        UpdateAllLocalizedTexts();
+    }
+
+    public void LoadLanguage()
+    {
+        // 저장된 언어가 있다면 로드, 없으면 기본값 사용
+        currentLanguage = PlayerPrefs.GetString("Language", defaultLanguage);
+        Debug.Log($"언어 로드: {currentLanguage}");
+    }
+
+    private void UpdateAllLocalizedTexts()
+    {
+        // UI 텍스트 컴포넌트를 모두 찾아서 갱신
+        LocalizedText[] localizedTextComponents = FindObjectsOfType<LocalizedText>();
+        foreach (var localizedText in localizedTextComponents)
+        {
+            localizedText.UpdateText();
+        }
     }
 }

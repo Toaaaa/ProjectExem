@@ -27,25 +27,21 @@ public class ResolutionManager : MonoBehaviour
         int currentResolutionIndex = 0;
         for (int i = 0; i < resolutions.Length; i++)
         {
+            if (resolutions[i].width < 1024 || resolutions[i].width > 4000) continue; // 특정 해상도 제외
             string option = $"{resolutions[i].width} x {resolutions[i].height} ";
             options.Add(option);
-
-            // 현재 해상도 확인
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
         }
 
         resolutionDropdown.AddOptions(options); // 옵션 추가
+
+        // 저장된 해상도 로드
+        currentResolutionIndex = LoadResolution();
         resolutionDropdown.value = currentResolutionIndex; // 현재 해상도로 초기화
         resolutionDropdown.RefreshShownValue(); // UI 갱신
 
         // Dropdown 이벤트 리스너 추가
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
-        LoadResolution();
         aspectRatioSet();
     }
 
@@ -58,9 +54,9 @@ public class ResolutionManager : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        //Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
         SetRes(resolution.width, resolution.height);
         SaveResolution(resolution.width, resolution.height, Screen.fullScreen);
+
         aspectRatioSet();
 
         // 해상도 변경 후 드롭다운 갱신
@@ -98,7 +94,7 @@ public class ResolutionManager : MonoBehaviour
             Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // 새로운 Rect 적용
         }
     }
-    public void LoadResolution()
+    public int LoadResolution()
     {
         // 저장된 값이 있는지 확인
         if (PlayerPrefs.HasKey("ResolutionWidth") && PlayerPrefs.HasKey("ResolutionHeight"))
@@ -107,16 +103,29 @@ public class ResolutionManager : MonoBehaviour
             int height = PlayerPrefs.GetInt("ResolutionHeight");
             bool isFullscreen = PlayerPrefs.GetInt("Fullscreen") == 1;
             fullscreenToggle.isOn = isFullscreen;
+
             // 해상도 설정 적용
             Screen.SetResolution(width, height, isFullscreen);
-            Debug.Log($"해상도 로드: {width} x {height}");
+
+            // 저장된 해상도를 지원 목록에서 검색
+            for (int i = 0; i < resolutions.Length; i++)
+            {
+                if (resolutions[i].width == width && resolutions[i].height == height)
+                    return i; // 해당 해상도 인덱스 반환
+            }
         }
-        else
+
+        // 저장된 값이 없거나 해상도가 없을 경우 기본값 (1920x1080, 전체 화면)
+        Screen.SetResolution(1920, 1080, true);
+        Debug.Log("기본 해상도 로드: 1920 x 1080");
+
+        for (int i = 0; i < resolutions.Length; i++)
         {
-            // 기본값 (1920x1080, 전체 화면)
-            Screen.SetResolution(1920, 1080, true);
-            Debug.Log("기본 해상도 로드: 1920 x 1080");
+            if (resolutions[i].width == 1920 && resolutions[i].height == 1080)
+                return i; // 기본 해상도 인덱스 반환
         }
+
+        return 0; // 기본값이 없을 경우 첫 번째 옵션 선택
     }
 
     void aspectRatioSet()
