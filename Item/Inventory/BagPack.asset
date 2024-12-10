@@ -23,6 +23,6 @@ MonoBehaviour:
     quantity: 0
   - itemData: {fileID: 11400000, guid: 4d4a5cee422915b4dbf8f46f681a0cc1, type: 2}
     quantity: 0
-  foodAmount: 3
+  foodAmount: 2
   armorAmount: 0
   gold: 0

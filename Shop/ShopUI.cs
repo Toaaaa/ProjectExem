@@ -22,6 +22,7 @@ public class ShopUI : MonoBehaviour
 
     private InventorySlot[] slots; // 슬롯 배열
     private bool isSpecialItem;//스페셜 아이템이 등장했는지 여부 << 나중에 슬롯주변에 효과를 줄 예정.
+    private Item specialItem;//스페셜 아이템
 
     [SerializeField]
     private ScrollRect scrollRect; //스크롤뷰
@@ -55,8 +56,10 @@ public class ShopUI : MonoBehaviour
     private void GenerateSlotsShop()//이거 게임 껏다키면서 리롤할 수도 있으니깐, 참고해서 추후 코드 수정.
     {
         int maxSize = shopData.items.Count;
-        if(shopData.RandomItem() != shopData.items[0])
+        Item specialIt = shopData.RandomItem();
+        if(specialIt != shopData.items[0])
         {
+            specialItem = specialIt;
             maxSize++; //10%의 확률로 스페셜 아이템이 등장함으로, 슬롯 하나더 추가.
             isSpecialItem = true;
         }
@@ -123,6 +126,10 @@ public class ShopUI : MonoBehaviour
         // 남은 슬롯 초기화 또는 비활성화 (수량 0도 슬롯 유지)
         for (int i = slotIndex; i < slots.Length; i++)
         {
+            if(isSpecialItem && i == slots.Length - 1)
+            {
+                slots[i].AddItem(specialItem);
+            }
                 // 상점에서는 슬롯을 초기화하지 않음 (0도 유지)
                 if (shopData.getItemQuantity(slots[i].GetItem().itemData) == 0)
                 {
