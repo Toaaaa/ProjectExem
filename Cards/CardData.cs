@@ -11,7 +11,7 @@ public class CardData : ScriptableObject
     public CardUseSubject cardUseSubject;
     public string cardID;           // 고유 ID
     public string cardName;  // 카드 이름 (key값으로 존재)
-    public List<string> cardDescription;   // 카드 설명 (key값으로 존재하며) list의 개수만큼 (파라미터의 수치 * 캐릭터의 공격력)를 사이에 넣어서 출력.
+    public string cardDescription;   // 카드 설명 (key값으로 존재하며)
     public Sprite cardImage;        // 스킬의 이미지
     public float param1;              // 파라미터1(스킬 계수)
     public int energyCost;          // 스킬 코스트

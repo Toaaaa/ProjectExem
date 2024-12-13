@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class LocalizationManager : MonoBehaviour
 
     private string currentLanguage;
     private Dictionary<string, string> localizedTexts;
+    private Dictionary<string, string> localizedCardTexts;
 
     private void Awake()
     {
@@ -86,6 +88,8 @@ public class LocalizationManager : MonoBehaviour
             { "en_Resolution", "Resolution" },
             { "kr_Resolution", "해상도" },
             { "jp_Resolution", "解像度" },
+           
+
             //아이템 텍스트//
             //id = 0
             { "en_Cheap_Potion", "Cheap Potion" },
@@ -124,6 +128,170 @@ public class LocalizationManager : MonoBehaviour
             { "jp_Mythic_Elixir_Desc", "HP 50% を回復し、死者を蘇らせるエリクサー"},
 
         };
+        localizedCardTexts = new Dictionary<string, string>
+        {
+            //스킬 카드 (스킬카드의 경우, kr,jp,en순으로 텍스트 작성)
+            //스킬 카드의 Effects의 개수 == params object[] args 에 들어가는 value의 개수. 
+            //전사 스킬 리스트 0.찌르기 1.아크 검술 2.방패치기(shield attack) 3.하늘 가르기 4.영웅등장 5.일섬 6.오라 블레이드 7.자가회복 8.광역회복 9.날카로운 칼날 10.견고한 방패 11.방패들어!
+            {"kr_Skill0","찌르기" },
+            {"jp_Skill0","剣突き" },
+            {"en_Skill0","Sword Stab" },
+            {"kr_Skill0_Desc", "칼로 적을 찔러 {0}의 데미지를 입힙니다." },
+            {"jp_Skill0_Desc", "剣で敵を突き刺し {0}ダメージを与えます。" },
+            {"en_Skill0_Desc", "Stab the enemy with a sword to deal {0}damage" },
+
+            {"kr_Skill1","아크 검술" },
+            {"jp_Skill1","アーク剣術" },
+            {"en_Skill1","Arc Swordsmanship" },
+            {"kr_Skill1_Desc", "가문의 비전 검술로 적을 2회 공격하여 {0}의 데미지를 입힙니다." },
+            {"jp_Skill1_Desc", "家門の秘伝剣術で敵を2回攻撃して {0}ダメージを与えます。" },
+            {"en_Skill1_Desc", "Attack the enemy twice with the Secret swordsmanship of the house to deal {0}damage." },
+
+            {"kr_Skill2","방패치기" },
+            {"jp_Skill2","シールドアタック" },
+            {"en_Skill2","Shield Attack" },
+            {"kr_Skill2_Desc", "방패로 적을 공격하여 {0}의 데미지와 {1}초 동안 스턴 부여." },
+            {"jp_Skill2_Desc", "盾で敵を攻撃して {0}ダメージと {1}秒間スタンを与えます。" },
+            {"en_Skill2_Desc", "Attack the enemy with a shield to deal {0}damage and stun for {1}seconds." },
+
+            {"kr_Skill3","하늘 가르기" },
+            {"jp_Skill3","スカイスラッシュ" },
+            {"en_Skill3","Sky Slash" },
+            {"kr_Skill3_Desc", "하늘을 가르는 검술로 적을 공격하여 {0}의 데미지를 입힙니다." },
+            {"jp_Skill3_Desc", "空を裂く剣術で敵を攻撃して {0}ダメージを与えます。" },
+            {"en_Skill3_Desc", "Attack the enemy with a sword that splits the sky to deal {0}damage." },
+
+            {"kr_Skill4","영웅등장" },
+            {"jp_Skill4","ヒーローアピアランス" },
+            {"en_Skill4","Hero Appearance" },
+            {"kr_Skill4_Desc", "높히 점프후 지면을 강력하게 강타하는 기술로 {0}의 데미지와 {1}초 동안 슬로우 부여." },
+            {"jp_Skill4_Desc", "高くジャンプして地面を強く打つ技で {0}ダメージと {1}秒間スローを与えます。" },
+            {"en_Skill4_Desc", "A technique that jumps high and strikes the ground powerfully to deal {0}damage and slow for {1}seconds." },
+
+            {"kr_Skill5","일섬" },
+            {"jp_Skill5","一刀両断" },
+            {"en_Skill5","Single Stroke" },
+            {"kr_Skill5_Desc", "적을 일격에 베어 {0}의 관통형 데미지를 입힙니다." },
+            {"jp_Skill5_Desc", "敵を一撃で斬って {0}の貫通ダメージを与えます。" },
+            {"en_Skill5_Desc", "Cut the enemy in one blow to deal {0}penetrating damage. " },
+
+            {"kr_Skill6","오라 블레이드" },
+            {"jp_Skill6","オーラブレード" },
+            {"en_Skill6","Aura Blade" },
+            {"kr_Skill6_Desc", "정면에 존재하는 모든적을 강력한 검기로 베어내어 {0}의 데미지를 입힙니다." },
+            {"jp_Skill6_Desc", "正面に存在する全ての敵を強力な斬撃で斬り {0}ダメージを与えます。" },
+            {"en_Skill6_Desc", "Cut all enemies in front with a powerful aura sword and deal {0}damage." },
+
+            {"kr_Skill7","자가회복" },
+            {"jp_Skill7","セルフヒーリング" },
+            {"en_Skill7","Self Healing" },
+            {"kr_Skill7_Desc", "자신의 체력을 {0}회복합니다." },
+            {"jp_Skill7_Desc", "自分の体力を {0}回復します。" },
+            {"en_Skill7_Desc", "Recover health {0}." },
+
+            {"kr_Skill8","광역회복" },
+            {"jp_Skill8","エリアヒーリング" },
+            {"en_Skill8","Area Healing" },
+            {"kr_Skill8_Desc1", "파티원 전체의 체력을" },
+            {"kr_Skill8_Desc2", "회복합니다." },
+            {"jp_Skill8_Desc1", "パーティ全体の体力を {0}回復します。" },
+            {"en_Skill8_Desc1", "Recover the health of the entire party {0}." },
+
+            {"kr_Skill9","날카로운 칼날" },
+            {"jp_Skill9","シャープブレード" },
+            {"en_Skill9","Sharpened Blade" },
+            {"kr_Skill9_Desc", "{0} 초 동안 더욱 날카로운 공격 시전." },
+            {"jp_Skill9_Desc", "{0} 秒間より鋭い攻撃を行います。" },
+            {"en_Skill9_Desc", "Cast a sharper attack for {0}" },
+
+            {"kr_Skill10","견고한 방패" },
+            {"jp_Skill10","タフシールド" },
+            {"en_Skill10","Tough Shield" },
+            {"kr_Skill10_Desc", "{0}초 동안 받는 데미지를 감소시킵니다." },
+            {"jp_Skill10_Desc", "{0}秒間盾で受けるダメージを減少させます。" },
+            {"en_Skill10_Desc", "Reduces incoming damage for {0} seconds." },
+
+            //방패들어! 의 경우 effects의 개수는 1개지만 value와 duration을 둘다 사용함으로 args에 2개의 value를 넣어줌. //value 우선 duration 후
+            {"kr_Skill11","방패들어!" },
+            {"jp_Skill11","シールドアップ！" },
+            {"en_Skill11","Shield Up!" },
+            {"kr_Skill11_Desc", "{1}초 동안 받는 데미지를 {0}% 감소시킵니다." },
+            {"jp_Skill11_Desc", "{1}秒間受けるダメージを{0}%減少させます。" },
+            {"en_Skill11_Desc", "Reduces {0}% of incoming damage for {1}seconds." },
+
+            //마법사 스킬 리스트 12.파이어 볼 13.블레이징 플레임 14.뇌격(라이트닝 스트라이크) 15.체인 라이트닝 16.차원 왜곡 17.정화의 빛 18.빙결화(프리징 블라스트) 19.치명적인 공격(critical attack) 20.재빠른 발놀림 21.매직 쉴드
+            {"kr_Skill12","파이어 볼" },
+            {"jp_Skill12","ファイアボール" },
+            {"en_Skill12","Fire Ball" },
+            {"kr_Skill12_Desc", "적에게 {0}의 데미지를 입히며 일정 확률로 {1}초 동안 화상 부여." },
+            {"jp_Skill12_Desc", "敵に {0}ダメージを与え、一定確率で {1}秒間燃焼状態にさせる。" },
+            {"en_Skill12_Desc", "Inflicts {0} damage to the enemy and has a chance to get burn for {1} seconds." },
+
+            {"kr_Skill13","블레이징 플레임" },
+            {"jp_Skill13","ブレイジングフレイム" },
+            {"en_Skill13","Blazing Flame" },
+            {"kr_Skill13_Desc", "커다란 불꽃 회오리가 {0}의 데미지를 입히며 {1}초 동안 화상 부여." },
+            {"jp_Skill13_Desc", "大きな炎の渦が {0}ダメージを与え、{1}秒間燃焼状態にさせる。" },
+            {"en_Skill13_Desc", "A large flame vortex deals {0} damage and has a chance to get burn for {1} seconds."},
+
+
+            {"kr_Skill14","뇌격" },
+            {"jp_Skill14","ライトニングストライク" },
+            {"en_Skill14","Lightning Strike" },
+            {"kr_Skill14_Desc", "소환한 번개가 내려, {0}의 데미지를 입히며 일정 확률로 {1}초 동안 감전 부여." },
+            {"jp_Skill14_Desc", "召喚した稲妻が降り、 {0}ダメージを与え、一定確率で {1}秒間感電状態にさせる。" },
+            {"en_Skill14_Desc", "A lightning bolt summoned descends, inflicting {0} damage and has a chance to get electrocuted for {1} seconds." },
+
+            {"kr_Skill15","체인 라이트닝" },
+            {"jp_Skill15","チェーンライトニング" },
+            {"en_Skill15","Chain Lightning" },
+            {"kr_Skill15_Desc", "모든 적에게 연결되는 전격을 발사해, {0}의 데미지를 입히며 일정 확률로 {1}초 동안 감전 부여." },
+            {"jp_Skill15_Desc", "全ての敵に連鎖する電撃を発射し、{0}のダメージを与え、一定確率で{1}秒間感電させる。" },
+            {"en_Skill15_Desc", "Summons a chain lightning that connects to all enemies, inflicting {0} damage and has a chance to get electrocuted for {1} seconds." },
+
+            {"kr_Skill16","차원 왜곡" },
+            {"jp_Skill16","ディメンションワープ" },
+            {"en_Skill16","Dimensional Distortion" },
+            {"kr_Skill16_Desc", "중력을 왜곡 시키는 구를 소환해 모든 적에게 {0}의 관통형 데미지를 입힌다." },
+            {"jp_Skill16_Desc", "重力を歪ませる球を召喚し、全ての敵に {0}の貫通ダメージを与えます。" },
+            {"en_Skill16_Desc", "Summons a sphere that distorts gravity to deal {0} penetrating damage to all enemies." },
+
+            {"kr_Skill17","정화의 빛" },
+            {"jp_Skill17","ホーリーレイ" },
+            {"en_Skill17","Holy ray" },
+            {"kr_Skill17_Desc", "신앙을 정제시켜 실체화한 모습을 불러내어 모든 적에게 {0}의 데미지를 입히며, 파티 전원의 체력을 {1}만큼 회복시킨다." },
+            {"jp_Skill17_Desc", "信仰を浄化し、実体化した姿を呼び出し、全ての敵に {0}のダメージを与え、パーティ全員の体力を {1}回復させます。" },
+            {"en_Skill17_Desc", "Purify faith and summon a physical form of it to deal {0} damage to all enemies and recover the health of all party members by {1}." },
+
+            {"kr_Skill18","빙결화" },
+            {"jp_Skill18","フリージングブラスト" },
+            {"en_Skill18","Freezing Blast" },
+            {"kr_Skill18_Desc", "닿는 모든것을 얼려버리는 냉기를 소환해 {0}의 데미지를 입히며, {1}초 동안 슬로우 부여." },
+            {"jp_Skill18_Desc", "触れるもの全てを凍らせる冷気を召喚し、 {0}のダメージを与え、 {1}秒間スローを与えます。" },
+            {"en_Skill18_Desc", "Summons a cold that freezes everything it touches to deal {0} damage and slow for {1} seconds." },
+
+            {"kr_Skill19","치명적인 공격" },
+            {"jp_Skill19","クリティカルアタック" },
+            {"en_Skill19","Critical Attack" },
+            {"kr_Skill19_Desc", "{0}초 동안 파티의 치명타률을 2배로 끌어올린다." },
+            {"jp_Skill19_Desc", "{0}秒間パーティのクリティカル率を2倍に引き上げます。" },
+            {"en_Skill19_Desc", "Doubles the critical rate of party's attack for {0} seconds." },
+
+            {"kr_Skill20","신체 활성화" },
+            {"jp_Skill20","ボディアクティベーション" },
+            {"en_Skill20","Body Activation" },
+            {"kr_Skill20_Desc", "신체의 활성화로 {0}초 동안 스테미너 회복 속도와 마나 회복 속도를 상승시킨다.." },
+            {"jp_Skill20_Desc", "体の活性化で {0}秒間スタミナ回復速度とマナ回復速度を上昇させます。" },
+            {"en_Skill20_Desc", "Increases stamina recovery rate and mana recovery rate for {0} seconds by activating the body." },
+
+            {"kr_Skill21","매직 쉴드" },
+            {"jp_Skill21","マジックシールド" },
+            {"en_Skill21","Magic Shield" },
+            {"kr_Skill21_Desc", "마법으로 만든 방패를 통해, {0}초 동안 받는 데미지를 {1}% 감소시킵니다." },
+            {"jp_Skill21_Desc", "魔法で作った盾を通じて、{0}秒間受けるダメージを{1}%減少させます。" },
+            {"en_Skill21_Desc", "Reduces {1}% of incoming damage for {0} seconds through a shield made of magic." },
+
+        };
     }
 
     public string GetLocalizedString(string key)
@@ -138,6 +306,32 @@ public class LocalizationManager : MonoBehaviour
         }
 
         // 키가 없을 경우 기본값 반환
+        return key;
+    }
+
+    //스킬 카드나 아이템 카드의 경우 여러개의 value를 받아야 하기 때문에 아래의 메서드 사용.
+    public string GetLocalizedFormattedString(string key, params object[] args)//"{0}만큼의 데미지를{1}초간 입힙니다." 이런식으로 사용 가능(key,value1,value2)
+    {
+        // 현재 언어와 키를 조합하여 완전한 키 생성
+        string fullKey = $"{currentLanguage}_{key}";
+
+        // 딕셔너리에서 문자열 검색
+        if (localizedTexts.TryGetValue(fullKey, out string localizedText))
+        {
+            try
+            {
+                // 문자열 포맷팅 적용
+                return string.Format(localizedText, args);
+            }
+            catch (FormatException e)
+            {
+                Debug.LogError($"[LocalizationManager] Format error in key: {fullKey}, Error: {e.Message}");
+                return localizedText; // 포맷 오류 발생 시 원본 텍스트 반환
+            }
+        }
+
+        // 키가 없을 경우 기본값 반환
+        Debug.LogWarning($"[LocalizationManager] Key not found: {fullKey}");
         return key;
     }
 

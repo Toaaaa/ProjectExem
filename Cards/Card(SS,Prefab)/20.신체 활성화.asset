@@ -10,26 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90545aa3acac0734b92a052d6e2687d0, type: 3}
-  m_Name: "14.\uB77C\uC774\uD2B8\uB2DD \uC2A4\uD2B8\uB77C\uC774\uD06C"
+  m_Name: "20.\uC2E0\uCCB4 \uD65C\uC131\uD654"
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: 1
   cardUseSubject: 2
-  cardID: 14
+  cardID: 20
   cardName: 
   cardDescription: []
   cardImage: {fileID: 0}
-  param1: 5
-  energyCost: 4
+  param1: 0
+  energyCost: 2
   isPysical: 0
   isPenetrate: 0
   isBlunt: 0
   chainCount: 0
   effects:
-  - effectType: 0
+  - effectType: 3
     value: 0
-    duration: 0
-  - effectType: 7
-    value: 30
-    duration: 10
+    duration: 20
   tags:
   - tagType: 1
