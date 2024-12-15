@@ -15,6 +15,7 @@ public class CharacterManager : MonoBehaviour
     {
         joanAnim = Joanna.GetComponent<Animator>();
         reiAnim = Rei.GetComponent<Animator>();
+        GameManager.Instance.characterManager = this;
     }
     
 

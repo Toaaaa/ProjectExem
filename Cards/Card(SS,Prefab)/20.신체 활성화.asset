@@ -15,8 +15,8 @@ MonoBehaviour:
   cardType: 1
   cardUseSubject: 2
   cardID: 20
-  cardName: 
-  cardDescription: []
+  cardName: Skill20
+  cardDescription: Skill20_Desc
   cardImage: {fileID: 0}
   param1: 0
   energyCost: 2
@@ -30,3 +30,4 @@ MonoBehaviour:
     duration: 20
   tags:
   - tagType: 1
+  islocked: 1

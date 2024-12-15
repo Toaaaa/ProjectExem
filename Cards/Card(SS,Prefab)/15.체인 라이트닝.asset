@@ -15,8 +15,8 @@ MonoBehaviour:
   cardType: 0
   cardUseSubject: 2
   cardID: 15
-  cardName: 
-  cardDescription: []
+  cardName: Skill15
+  cardDescription: Skill15_Desc
   cardImage: {fileID: 0}
   param1: 3
   energyCost: 2
