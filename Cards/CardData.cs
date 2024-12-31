@@ -11,7 +11,7 @@ public class CardData : ScriptableObject
     public enum CardUseSubject { Item, Warrior, Mage };// 아이템, 전사, 마법사로 나뉨. (이걸로 색상을 나눌지, 카드 타입으로 색상을 나눌지 미정)
     public CardType cardType;
     public CardUseSubject cardUseSubject;
-    public string cardID;           // 고유 ID
+    public int cardID;           // 고유 ID 
     public string cardName;  // 카드 이름 (key값으로 존재)
     public string cardDescription;   // 카드 설명 (key값으로 존재하며)
     public Sprite cardImage;        // 스킬의 이미지

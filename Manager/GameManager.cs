@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public ShopUIManager shopUIManager;
     public LocalizationManager localizationManager;
     public ResolutionManager resolutionManager;
+    public CardManager cardManager;
 
     public Canvas mainCanvas;//블랙아웃과 옵션등 게임 전반에서 쓰일 UI들이 담긴 캔버스.
     [SerializeField]
