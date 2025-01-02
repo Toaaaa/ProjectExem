@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class Inventory : MonoBehaviour
@@ -11,7 +12,15 @@ public class Inventory : MonoBehaviour
 
     private void OnEnable()
     {
-        maxCapacity = isStorage ? 60 : GameManager.Instance.inventoryManager.bagpackSize;
+        if (GameManager.Instance == null) return;
+        else if(GameManager.Instance.inventoryManager == null)//
+        {
+            CheckInventory();
+        }
+        else
+        {
+            maxCapacity = isStorage ? 60 : GameManager.Instance.inventoryManager.bagpackSize;
+        }
 
         if(isStorage)
         {
@@ -110,6 +119,18 @@ public class Inventory : MonoBehaviour
 
         //아이템의 적용 순서 : 클릭 >> Inventory클라스를 가지는 임시 오브젝트에 데이터 적용 >> 스크립터블에 데이터 적용 >> 스크립터블의 데이터를 참고하는 UI가 데이터를 표시.
     }
+
+    //
+    private async void CheckInventory()
+    {
+        {
+            await WaitUntilAsync(() => GameManager.Instance.inventoryManager != null);
+            maxCapacity = isStorage ? 60 : GameManager.Instance.inventoryManager.bagpackSize;
+        }
+    }
+    private Task WaitUntilAsync(System.Func<bool> predicate) { var tcs = new TaskCompletionSource<bool>(); StartCoroutine(WaitUntilCoroutine(predicate, tcs)); return tcs.Task; }
+    private IEnumerator WaitUntilCoroutine(System.Func<bool> predicate, TaskCompletionSource<bool> tcs) { yield return new WaitUntil(predicate); tcs.SetResult(true); }
+    //인벤이 로드되기 전에 인벤을 사용하려고 하면 오류가 발생하는데, 이를 방지하기 위한 코드.
 
     public List<Item> GetAllItems() => items;
 }

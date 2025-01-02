@@ -5,8 +5,8 @@ using Cysharp.Threading.Tasks;
 
 public class CharacterManager : MonoBehaviour
 {
-    public GameObject Joanna;
-    public GameObject Rei;
+    public Joanna Joanna;
+    public Rei Rei;
     public Animator joanAnim;
     public Animator reiAnim;
 
@@ -49,4 +49,6 @@ public class CharacterManager : MonoBehaviour
         joanAnim.SetTrigger("FleeEnd");
         reiAnim.SetTrigger("FleeEnd");
     }
+
+
 }
