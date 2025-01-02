@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewCard", menuName = "Card/Create New Card")]
 public class CardData : ScriptableObject
 {
-    public GameObject cardPrefab;//카드의 프리팹.
+    public Cards cardPrefab;//카드의 프리팹.
 
     public enum CardType { Attack, Utility, Items };// 공격, 유틸리티(던전 내부에서 획득), 아이템으로 나뉨. (이걸로 색상을 나눌지, 카드 사용 주체로 색상을 나눌지 미정)
     public enum CardUseSubject { Item, Warrior, Mage };// 아이템, 전사, 마법사로 나뉨. (이걸로 색상을 나눌지, 카드 타입으로 색상을 나눌지 미정)
@@ -27,6 +27,11 @@ public class CardData : ScriptableObject
     public List<CardTags> tags;       // 카드 태그 리스트
     //////카드 언락//////
     public bool islocked;          // 잠김 여부
+
+    public void GiveData()//prefab을 처음 instantiate할 때, cardData를
+    {
+        cardPrefab.cardData = this;
+    }
 }
 
 [System.Serializable]

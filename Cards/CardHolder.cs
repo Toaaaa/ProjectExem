@@ -30,7 +30,7 @@ public class CardHolder : MonoBehaviour
     public void AddCard(CardData cardData)
     {
         cardsHolding.Add(cardData);
-        GameObject cardObject = Instantiate(cardData.cardPrefab, transform);
+        GameObject cardObject = Instantiate(cardData.cardPrefab.gameObject, transform); //여기서 생성된 cardObect가 하이어라키에 생성되는 카드프리팹.
         Cards cardComponent = cardObject.GetComponent<Cards>();
         cards.Add(cardComponent);
     }

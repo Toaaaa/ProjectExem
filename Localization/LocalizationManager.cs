@@ -215,9 +215,9 @@ public class LocalizationManager : MonoBehaviour
             {"kr_Skill11","방패들어!" },
             {"jp_Skill11","シールドアップ！" },
             {"en_Skill11","Shield Up!" },
-            {"kr_Skill11_Desc", "{1}초 동안 받는 데미지를 {0}% 감소시킵니다." },
-            {"jp_Skill11_Desc", "{1}秒間受けるダメージを{0}%減少させます。" },
-            {"en_Skill11_Desc", "Reduces {0}% of incoming damage for {1}seconds." },
+            {"kr_Skill11_Desc", "{0}초 동안 받는 데미지를 감소시킵니다." },
+            {"jp_Skill11_Desc", "{0}秒間受けるダメージを減少させます。" },
+            {"en_Skill11_Desc", "Reduces incoming damage for {0}seconds." },
 
             //마법사 스킬 리스트 12.파이어 볼 13.블레이징 플레임 14.뇌격(라이트닝 스트라이크) 15.체인 라이트닝 16.차원 왜곡 17.정화의 빛 18.빙결화(프리징 블라스트) 19.치명적인 공격(critical attack) 20.재빠른 발놀림 21.매직 쉴드
             {"kr_Skill12","파이어 볼" },
@@ -287,9 +287,9 @@ public class LocalizationManager : MonoBehaviour
             {"kr_Skill21","매직 쉴드" },
             {"jp_Skill21","マジックシールド" },
             {"en_Skill21","Magic Shield" },
-            {"kr_Skill21_Desc", "마법으로 만든 방패를 통해, {0}초 동안 받는 데미지를 {1}% 감소시킵니다." },
-            {"jp_Skill21_Desc", "魔法で作った盾を通じて、{0}秒間受けるダメージを{1}%減少させます。" },
-            {"en_Skill21_Desc", "Reduces {1}% of incoming damage for {0} seconds through a shield made of magic." },
+            {"kr_Skill21_Desc", "마법으로 만든 방패를 통해, {0}초 동안 받는 데미지를 감소시킵니다." },
+            {"jp_Skill21_Desc", "魔法で作った盾を通じて、{0}秒間受けるダメージを減少させます。" },
+            {"en_Skill21_Desc", "Reduces incoming damage for {0} seconds through a shield made of magic." },
 
         };
     }
