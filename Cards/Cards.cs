@@ -8,11 +8,11 @@ public class Cards : MonoBehaviour //카드 데이터를 가져와서 구현하는 prefab 데이
 {
     public CardData cardData;
 
-    public Sprite cardImage;
-    public TextMeshProUGUI cardName;
+    public SpriteRenderer cardImage;
+    public TextMeshPro cardName;
 
-    public TextMeshProUGUI cardCost;
-    public TextMeshProUGUI cardDescription;
+    public TextMeshPro cardCost;
+    public TextMeshPro cardDescription;
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class Cards : MonoBehaviour //카드 데이터를 가져와서 구현하는 prefab 데이
         {
             //먼저 이미지와 이름을 가져온 뒤
             cardName.text = LocalizationManager.Instance.GetLocalizedString(cardData.cardName);
-            cardImage = cardData.cardImage;
+            cardImage.sprite = cardData.cardImage;
 
             //카드의 코스트와 설명 + 태그를 가져온다
             SetCardCostAndDescription();
