@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90545aa3acac0734b92a052d6e2687d0, type: 3}
-  m_Name: "11.\uBC29\uD328\uB4E4\uC5B4!"
+  m_Name: "2.\uBC29\uD328\uB4E4\uC5B4!"
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 0}
   cardType: 1
   cardUseSubject: 1
-  cardID: 11
-  cardName: Skill11
-  cardDescription: Skill11_Desc
+  cardID: 2
+  cardName: Skill2
+  cardDescription: Skill2_Desc
   cardImage: {fileID: 0}
   param1: 0
   energyCost: 2

@@ -147,12 +147,12 @@ public class LocalizationManager : MonoBehaviour
             {"jp_Skill1_Desc", "家門の秘伝剣術で敵を2回攻撃して {0}ダメージを与えます。" },
             {"en_Skill1_Desc", "Attack the enemy twice with the Secret swordsmanship of the house to deal {0}damage." },
 
-            {"kr_Skill2","방패치기" },
-            {"jp_Skill2","シールドアタック" },
-            {"en_Skill2","Shield Attack" },
-            {"kr_Skill2_Desc", "방패로 적을 공격하여 {0}의 데미지와 {1}초 동안 스턴 부여." },
-            {"jp_Skill2_Desc", "盾で敵を攻撃して {0}ダメージと {1}秒間スタンを与えます。" },
-            {"en_Skill2_Desc", "Attack the enemy with a shield to deal {0}damage and stun for {1}seconds." },
+            {"kr_Skill2","방패들어!" },
+            {"jp_Skill2","シールドアップ！" },
+            {"en_Skill2","Shield Up!" },
+            {"kr_Skill2_Desc", "{0}초 동안 받는 데미지를 감소시킵니다." },
+            {"jp_Skill2_Desc", "{0}秒間受けるダメージを減少させます。" },
+            {"en_Skill2_Desc", "Reduces incoming damage for {0}seconds." },
 
             {"kr_Skill3","하늘 가르기" },
             {"jp_Skill3","スカイスラッシュ" },
@@ -211,13 +211,12 @@ public class LocalizationManager : MonoBehaviour
             {"jp_Skill10_Desc", "{0}秒間盾で受けるダメージを減少させます。" },
             {"en_Skill10_Desc", "Reduces incoming damage for {0} seconds." },
 
-            //방패들어! 의 경우 effects의 개수는 1개지만 value와 duration을 둘다 사용함으로 args에 2개의 value를 넣어줌. //value 우선 duration 후
-            {"kr_Skill11","방패들어!" },
-            {"jp_Skill11","シールドアップ！" },
-            {"en_Skill11","Shield Up!" },
-            {"kr_Skill11_Desc", "{0}초 동안 받는 데미지를 감소시킵니다." },
-            {"jp_Skill11_Desc", "{0}秒間受けるダメージを減少させます。" },
-            {"en_Skill11_Desc", "Reduces incoming damage for {0}seconds." },
+            {"kr_Skill11","방패치기" },
+            {"jp_Skill11","シールドアタック" },
+            {"en_Skill11","Shield Attack" },
+            {"kr_Skill11_Desc", "방패로 적을 공격하여 {0}의 데미지와 {1}초 동안 스턴 부여." },
+            {"jp_Skill11_Desc", "盾で敵を攻撃して {0}ダメージと {1}秒間スタンを与えます。" },
+            {"en_Skill11_Desc", "Attack the enemy with a shield to deal {0}damage and stun for {1}seconds." },
 
             //마법사 스킬 리스트 12.파이어 볼 13.블레이징 플레임 14.뇌격(라이트닝 스트라이크) 15.체인 라이트닝 16.차원 왜곡 17.정화의 빛 18.빙결화(프리징 블라스트) 19.치명적인 공격(critical attack) 20.재빠른 발놀림 21.매직 쉴드
             {"kr_Skill12","파이어 볼" },
