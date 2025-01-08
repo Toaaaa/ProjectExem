@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillProjectileShot : StateMachineBehaviour
 {
-    public Animator externalAnimator;//스킬 투사체의 애니메이터
+    public Animator externalAnimator;//스킬 투사체의 애니메이터,projectileAnimatorSet에서 할당
     public string triggerName;//스킬 투사체의 트리거 이름
 
     public void SetExternalAnimator(Animator animator)

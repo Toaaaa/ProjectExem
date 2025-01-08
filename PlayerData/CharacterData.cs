@@ -50,7 +50,7 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
 
 
     //////////////////////////////////////
-    //플레이어의 스테이터스를 업데이트하는 함수들.
+    //플레이어의 스테이터스를 업데이트하는 데이터.
 
     public Image playerSprite;
     public Slider hpBar;
@@ -60,6 +60,10 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
     public TextMeshProUGUI staminaText; //조안나는 stamina, 레이는 mana를 사용 하지만, 해당 스크립트 에서는 편의상 stamina로 통일.
 
     private bool OnShake;
+    //////////////////////////////////////
+    //전투시스템 에서 사용하는 데이터.
+    public GameObject[] targetMonster;//공격할 몬스터를 저장하는 배열.
+
 
     private void Update()
     {

@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90545aa3acac0734b92a052d6e2687d0, type: 3}
-  m_Name: "15.\uCCB4\uC778 \uB77C\uC774\uD2B8\uB2DD"
+  m_Name: "15.\uBA54\uD14C\uC624"
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 0}
   cardType: 0
   cardUseSubject: 2
   cardID: 15
@@ -28,9 +29,10 @@ MonoBehaviour:
   - effectType: 0
     value: 0
     duration: 0
-  - effectType: 7
-    value: 30
-    duration: 10
+  - effectType: 6
+    value: 100
+    duration: 30
   tags:
   - tagType: 1
   - tagType: 2
+  islocked: 0

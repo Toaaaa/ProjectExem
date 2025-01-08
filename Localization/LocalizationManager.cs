@@ -224,14 +224,14 @@ public class LocalizationManager : MonoBehaviour
             {"en_Skill12","Fire Ball" },
             {"kr_Skill12_Desc", "적에게 {0}의 데미지를 입히며 일정 확률로 {1}초 동안 화상 부여." },
             {"jp_Skill12_Desc", "敵に {0}ダメージを与え、一定確率で {1}秒間燃焼状態にさせる。" },
-            {"en_Skill12_Desc", "Inflicts {0} damage to the enemy and has a chance to get burn for {1} seconds." },
+            {"en_Skill12_Desc", "Inflicts {0} damage to the enemy and has a chance to get burn debuff for {1} seconds." },
 
             {"kr_Skill13","블레이징 플레임" },
             {"jp_Skill13","ブレイジングフレイム" },
             {"en_Skill13","Blazing Flame" },
-            {"kr_Skill13_Desc", "커다란 불꽃 회오리가 {0}의 데미지를 입히며 {1}초 동안 화상 부여." },
-            {"jp_Skill13_Desc", "大きな炎の渦が {0}ダメージを与え、{1}秒間燃焼状態にさせる。" },
-            {"en_Skill13_Desc", "A large flame vortex deals {0} damage and has a chance to get burn for {1} seconds."},
+            {"kr_Skill13_Desc", "커다란 불꽃 회오리가 {0}의 데미지를 입히며 일정 확률로 {1}초 동안 화상 부여." },
+            {"jp_Skill13_Desc", "大きな炎の渦が {0}ダメージを与え、一定確率で {1}秒間燃焼状態にさせる。" },
+            {"en_Skill13_Desc", "A large flame vortex deals {0} damage and has a chance to get burn debuff for {1} seconds."},
 
 
             {"kr_Skill14","뇌격" },
@@ -241,12 +241,13 @@ public class LocalizationManager : MonoBehaviour
             {"jp_Skill14_Desc", "召喚した稲妻が降り、 {0}ダメージを与え、一定確率で {1}秒間感電状態にさせる。" },
             {"en_Skill14_Desc", "A lightning bolt summoned descends, inflicting {0} damage and has a chance to get electrocuted for {1} seconds." },
 
-            {"kr_Skill15","체인 라이트닝" },
-            {"jp_Skill15","チェーンライトニング" },
-            {"en_Skill15","Chain Lightning" },
-            {"kr_Skill15_Desc", "모든 적에게 연결되는 전격을 발사해, {0}의 데미지를 입히며 일정 확률로 {1}초 동안 감전 부여." },
-            {"jp_Skill15_Desc", "全ての敵に連鎖する電撃を発射し、{0}のダメージを与え、一定確率で{1}秒間感電させる。" },
-            {"en_Skill15_Desc", "Summons a chain lightning that connects to all enemies, inflicting {0} damage and has a chance to get electrocuted for {1} seconds." },
+            {"kr_Skill15","메테오" } ,
+            {"jp_Skill15","メテオ" },
+            {"en_Skill15","Meteor" },
+            {"kr_Skill15_Desc", "하늘에서 떨어지는 운석이 {0}의 데미지를 입히며, {1}초 동안 화상 부여." },
+            {"jp_Skill15_Desc", "空から落ちる隕石が {0}ダメージを与え、 {1}秒間燃焼状態にさせる。" },
+            {"en_Skill15_Desc", "A meteor falling from the sky deals {0} damage and gives burn debuff for {1} seconds." },
+
 
             {"kr_Skill16","차원 왜곡" },
             {"jp_Skill16","ディメンションワープ" },
