@@ -63,8 +63,14 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
     //////////////////////////////////////
     //전투시스템 에서 사용하는 데이터.
     public GameObject[] targetMonster;//공격할 몬스터를 저장하는 배열.
+    public ExtraSkill[] extraSkills;//플레이어가 사용할 수 있는 추가 스킬들을 저장하는 배열.//주로 버프 형식의 이펙트
+    public bool isMagicShield;//마법방어막이 활성화 되어있는지 확인하는 변수.
 
 
+    private void Awake()
+    {
+        isMagicShield = false;
+    }
     private void Update()
     {
 

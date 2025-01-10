@@ -24,11 +24,15 @@ public class StageManager : MonoBehaviour
     public Light2D globalLight;
     private System.Random random = new System.Random();//랜덤함수 시드 초기화.
 
+    private void Awake()
+    {
+        GameManager.Instance.stageManager = this;
+        GameManager.Instance.characterManager = characterManager;
+    }
+
     private void Start()
     {
         startStage();
-        GameManager.Instance.stageManager = this;
-        GameManager.Instance.characterManager = characterManager;
     }
     
     private void Update()

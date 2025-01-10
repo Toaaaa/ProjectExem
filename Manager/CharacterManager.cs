@@ -10,12 +10,15 @@ public class CharacterManager : MonoBehaviour
     public Animator joanAnim;
     public Animator reiAnim;
 
+    private void Awake()
+    {
+        GameManager.Instance.characterManager = this;
+    }
 
     private void Start()
     {
         joanAnim = Joanna.GetComponent<Animator>();
         reiAnim = Rei.GetComponent<Animator>();
-        GameManager.Instance.characterManager = this;
     }
     
 

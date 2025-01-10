@@ -8,7 +8,7 @@ using Cysharp.Threading.Tasks;
 
 public class Joanna : CharacterData
 {
-    private bool isResetting;//투리거의 리셋 상태 확인.
+    private bool isResetting;//트리거의 리셋 상태 확인.
 
     private void Update()
     {
