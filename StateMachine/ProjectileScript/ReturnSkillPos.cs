@@ -14,5 +14,6 @@ public class ReturnSkillPos : StateMachineBehaviour
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.gameObject.transform.localPosition = new Vector3(0.5f, 0, 0);
+        animator.GetComponent<SkillHitMonster>().isUsing = false;//사용 종료.
     }
 }

@@ -28,6 +28,13 @@ public class CardData : ScriptableObject
     //////카드 언락//////
     public bool islocked;          // 잠김 여부
 
+    [Header("Skill Data")]//해당 카드를 사용해 발동되는 스킬의 데이터 (SkillShoting 에서 사용)
+    public bool fastMultiAttack;//빠른 연속공격 여부.
+    public int skillAttackCount;//스킬의 공격 횟수.
+    public float SkillDamageTime;//피격후 스킬의 데미지가 들어가는 시간
+    public float SkillDamage;//스킬의 데미지 계수. 피격후 몬스터의 방어력+플레이어 공격력 에 따라 실제 적용될 데미지에 차이가 있음.
+
+
     public void GiveData()//prefab을 처음 instantiate할 때, cardData를
     {
         cardPrefab.cardData = this;

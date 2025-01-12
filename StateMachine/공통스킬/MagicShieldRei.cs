@@ -26,6 +26,7 @@ public class MagicShieldRei : StateMachineBehaviour
 
         if(skillPhase == 0)//海府绢 积己矫累
         {
+            rei.reiPersonal.SetTrigger("StopSkill");
             joanna.extraSkills[0].GetComponent<Animator>().SetTrigger("MagicShield");
         }
         if (skillPhase == 1)//硅府绢 积己肯丰

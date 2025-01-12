@@ -10,8 +10,25 @@ public class SkillShoting : StateMachineBehaviour //·¹ÀÌÀÇ ½ºÅ³ ¿ÀºêÁ§Æ®ÀÇ ¾Ö´Ï¸
     public bool isRangeSkill;//¹üÀ§ ½ºÅ³ÀÎ °æ¿ì
     private float skillX;//½ºÅ³ÀÇ x°ª.
 
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //¾Æ·¡ÀÇ µ¥ÀÌÅÍ´Â Åõ»çÃ¼ÀÇ SkillHitMonster¿¡°Ô Àü´ÞÈÄ Collision½Ã »ç¿ëµÊ.
+    [Header("Skill Data_Á÷Á¢ ³Ö¾îÁÖ±â")]
+    public CardData skillData;//½ºÅ³ÀÇ µ¥ÀÌÅÍ.
+    public bool fastMultiAttack;//ºü¸¥ ¿¬¼Ó °ø°ÝÀÎ °æ¿ì.(ÃµÃµÈ÷ ÅöÅöÅöÀÌ ¾Æ´Ï¶ó ºü¸£°Ô ÆÄ¹Ù¹Ú! µé¾î°¡´Â ½ºÅ³)
+    public int skillAttackCount;//½ºÅ³ÀÇ °ø°Ý È½¼ö.
+    public float SkillDamageTime;//ÇÇ°ÝÈÄ ½ºÅ³ÀÇ µ¥¹ÌÁö°¡ µé¾î°¡´Â ½Ã°£
+    public float SkillDamage;//½ºÅ³ÀÇ µ¥¹ÌÁö °è¼ö. ÇÇ°ÝÈÄ ¸ó½ºÅÍÀÇ ¹æ¾î·Â+ÇÃ·¹ÀÌ¾î °ø°Ý·Â ¿¡ µû¶ó ½ÇÁ¦ Àû¿ëµÉ µ¥¹ÌÁö¿¡ Â÷ÀÌ°¡ ÀÖÀ½.
+
+    private void Awake()
     {
+        fastMultiAttack = skillData.fastMultiAttack;
+        skillAttackCount = skillData.skillAttackCount;
+        SkillDamageTime = skillData.SkillDamageTime;
+        SkillDamage = skillData.SkillDamage;
+    }
+
+    public override async void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        animator.GetComponent<SkillHitMonster>().isUsing = true;//½ºÅ³ »ç¿ëÁßÀ¸·Î º¯°æ.
         skillX = 0;//x°ª ÃÊ±âÈ­.
 
         animator.GetComponent<SkillHitMonster>().moveTween = null;//±âÁ¸ÀÇ tween ÃÊ±âÈ­.
@@ -21,7 +38,14 @@ public class SkillShoting : StateMachineBehaviour //·¹ÀÌÀÇ ½ºÅ³ ¿ÀºêÁ§Æ®ÀÇ ¾Ö´Ï¸
             //½ºÅ³À» xÃà ÀÏÁ÷¼±À¸·Î ¹ß»çÇÏ´Â Çü½Ä.
             GameObject skill = animator.gameObject;
             //Scene¿¡¼­ÀÇ ¸ó½ºÅÍÀÇ À§Ä¡´Â º¸Åë 3~4Á¤µµ.(8,2)·Î ¼³Á¤ÇØ Åõ»çÃ¼ Ãæµ¹±îÁö ¾à 1ÃÊ°¡·®.
-            animator.GetComponent<SkillHitMonster>().moveTween = skill.transform.DOMoveX(8, 2);           
+            SkillHitMonster skillHitMonster = animator.GetComponent<SkillHitMonster>();
+            skillHitMonster.moveTween = skill.transform.DOMoveX(8, 2);
+            //½ºÅ³ÀÇ °ø°Ý È½¼ö, µ¥¹ÌÁö °è¼ö, µ¥¹ÌÁö ½Ã°£À» ¼³Á¤.
+
+            skillHitMonster.fastMultiAttack = fastMultiAttack;
+            skillHitMonster.skillAttackCount = skillAttackCount;
+            skillHitMonster.SkillDamageTime = SkillDamageTime;
+            skillHitMonster.SkillDamage = SkillDamage;
         }
         else//À§Ä¡ ¼ÒÈ¯ Çü½ÄÀÎ °æ¿ì, ´ÜÀÏ ÆÇÁ¤ or ¹üÀ§ ÆÇÁ¤.
         {
@@ -30,6 +54,7 @@ public class SkillShoting : StateMachineBehaviour //·¹ÀÌÀÇ ½ºÅ³ ¿ÀºêÁ§Æ®ÀÇ ¾Ö´Ï¸
                 //¹üÀ§ ½ºÅ³ÀÇ °æ¿ì, Á¸ÀçÇÏ´Â ¸ðµç ¸ó½ºÅÍÀÇ x°ªÀÇ Æò±Õ À§Ä¡¿¡ ½ºÅ³À» ¼ÒÈ¯. 
                 //ÇØ´ç state ÁøÀÔÀü targetMonster¸¦ ¼³Á¤ ÈÄ ÁøÀÔÇÏµµ·Ï ÇØ¾ßÇÔ.
                 GameObject skill = animator.gameObject;
+                //Å¸°ÙµéÀÇ Áß°£À§Ä¡¸¦ Ã£¾Æ ÇØ´ç À§Ä¡¿¡ ½ºÅ³ ¼ÒÈ¯.
                 if(animator.GetComponent<SkillHitMonster>().characterData.targetMonster != null)
                 {
                     for(int i = 0; i < animator.GetComponent<SkillHitMonster>().characterData.targetMonster.Length; i++)
@@ -41,17 +66,30 @@ public class SkillShoting : StateMachineBehaviour //·¹ÀÌÀÇ ½ºÅ³ ¿ÀºêÁ§Æ®ÀÇ ¾Ö´Ï¸
                     skillPos.y = 0;
                     animator.transform.localPosition = skillPos;
                     animator.ResetTrigger("HitMonster");//¸ó½ºÅÍÀÇ Áß°£¿¡ ¼ÒÈ¯µÇ¸é, ÇÇ°Ý ÆÇÁ¤ÀÌ ¾øÀ» ¼ö ÀÖ¾î ¼öµ¿À¸·Î ÃÊ±âÈ­.
+                    //ÇÇ°Ý ÆÇÁ¤ÀÌ ¾øÀ» ¼öµµ ÀÖÀ¸´Ï ÀÌ°÷¿¡¼­ µ¥¹ÌÁö ¿¬»ê ½ÇÇà
+                    //µ¥¹ÌÁö ¿¬»ê ½ºÅ©¸³Æ®.
                 }
                 else
                 {
                     Debug.LogWarning("Target Monster is not assigned.");
                 }
             }
-            else//´ÜÀÏ ÆÇÁ¤ÀÎ °æ¿ì
+            else//´ÜÀÏ ÆÇÁ¤ÀÎ °æ¿ì(targetMonsterÁß index 0¹øÂ° ¸ó½ºÅÍ¿¡°Ô¸¸ ÇÇ°Ý ÆÇÁ¤ >> ´õ ¾Õ¿¡ÀÖ´Â ¸ó½ºÅÍ·Î ¿Ã¼ö ÀÖ°Ô ¸ó½ºÅÍ ¸Å´ÏÀú¿¡¼­ °ü¸®ÇØÁÖ±â.)
             {
-                //´ÜÀÏ ÆÇÁ¤ÀÇ °æ¿ì, ºü¸£°Ô Åõ¸íÇÑ ½ºÅ³À» ¹ß»ç + ÇÇ°Ý½ÃÁ¡ºÎÅÍ ½ºÅ³ Àç»ý ÇÏµµ·Ï ¾Ö´Ï¸ÞÀÌ¼Ç Á¶Á¤.
                 GameObject skill = animator.gameObject;
-                animator.GetComponent<SkillHitMonster>().moveTween = skill.transform.DOMoveX(8, 0.1f);
+                SkillHitMonster skillHitMonster = animator.GetComponent<SkillHitMonster>();
+                //Å¸°ÙÁß °¡Àå ¾Õ¿¡ÀÖ´Â Å¸°ÙÀÇ À§Ä¡°ªÀ» °¡Á®¿Í¼­
+                skillX = animator.GetComponent<SkillHitMonster>().characterData.targetMonster[0].transform.position.x;
+                Vector3 skillPos = animator.transform.parent.InverseTransformPoint(new Vector3(skillX,0,0));
+                skillPos.y = 0;
+                //ÇØ´ç À§Ä¡¿¡ ½ºÅ³À» ¼ÒÈ¯.
+                animator.transform.localPosition = skillPos;
+                animator.ResetTrigger("HitMonster");//¸ó½ºÅÍÀÇ Áß°£¿¡ ¼ÒÈ¯µÇ¸é, ÇÇ°Ý ÆÇÁ¤ÀÌ ¾øÀ» ¼ö ÀÖ¾î ¼öµ¿À¸·Î ÃÊ±âÈ­.
+                //½ºÅ³ÀÇ °ø°Ý È½¼ö, µ¥¹ÌÁö °è¼ö, µ¥¹ÌÁö ½Ã°£À» ¼³Á¤.
+                skillHitMonster.fastMultiAttack = fastMultiAttack;
+                skillHitMonster.skillAttackCount = skillAttackCount;
+                skillHitMonster.SkillDamageTime = SkillDamageTime;
+                skillHitMonster.SkillDamage = SkillDamage;
             }
         }
     }
