@@ -270,12 +270,13 @@ public class LocalizationManager : MonoBehaviour
             {"jp_Skill18_Desc", "触れるもの全てを凍らせる冷気を召喚し、 {0}のダメージを与え、 {1}秒間スローを与えます。" },
             {"en_Skill18_Desc", "Summons a cold that freezes everything it touches to deal {0} damage and slow for {1} seconds." },
 
-            {"kr_Skill19","치명적인 공격" },
-            {"jp_Skill19","クリティカルアタック" },
-            {"en_Skill19","Critical Attack" },
-            {"kr_Skill19_Desc", "{0}초 동안 파티의 치명타률을 2배로 끌어올린다." },
-            {"jp_Skill19_Desc", "{0}秒間パーティのクリティカル率を2倍に引き上げます。" },
-            {"en_Skill19_Desc", "Doubles the critical rate of party's attack for {0} seconds." },
+            {"kr_Skill19","마나 리제너레이션" },
+            {"jp_Skill19","マナリジェネレーション" },
+            {"en_Skill19","Mana Regeneration" },
+            {"kr_Skill19_Desc", "마나를 즉시 최대치로 회복한다." },
+            {"jp_Skill19_Desc", "マナを即座に最大まで回復します。" },
+            {"en_Skill19_Desc", "Recovers full mana immediately." },
+
 
             {"kr_Skill20","신체 활성화" },
             {"jp_Skill20","ボディアクティベーション" },

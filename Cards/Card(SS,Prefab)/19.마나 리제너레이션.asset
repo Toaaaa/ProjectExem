@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90545aa3acac0734b92a052d6e2687d0, type: 3}
-  m_Name: "19.\uCE58\uBA85\uC801\uC778 \uACF5\uACA9"
+  m_Name: "19.\uB9C8\uB098 \uB9AC\uC81C\uB108\uB808\uC774\uC158"
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 0}
   cardType: 1
   cardUseSubject: 2
   cardID: 19
@@ -25,8 +26,13 @@ MonoBehaviour:
   isBlunt: 0
   chainCount: 0
   effects:
-  - effectType: 3
+  - effectType: 10
     value: 0
-    duration: 15
+    duration: 0
   tags:
   - tagType: 1
+  islocked: 0
+  fastMultiAttack: 0
+  skillAttackCount: 0
+  SkillDamageTime: 0
+  SkillDamage: 0

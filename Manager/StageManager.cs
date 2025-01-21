@@ -10,6 +10,7 @@ public class StageManager : MonoBehaviour
 {
     public BackViewManager backViewManager;
     public CharacterManager characterManager;
+    public MonsterManager monsterManager;
 
     public int RoomNum;//방의 번호
     string RoomName;//방의 이름
@@ -165,9 +166,9 @@ public class StageManager : MonoBehaviour
     {
         int randomValue = random.Next(0, 100); // 0부터 99까지의 난수 생성
 
-        if (randomValue < 15)
+        if (randomValue < 10)
         {
-            return 2; // 15% 확률로 안식처
+            return 2; // 10% 확률로 안식처
         }
         else if (randomValue < 30)
         {
@@ -179,18 +180,18 @@ public class StageManager : MonoBehaviour
         }
         else if (randomValue < 60)
         {
-            return 3; // 20% 확률로 혈향 동굴
+            return 3; // 20% 확률로 혈향 동굴(조우확률은 75%)
         }
         else if(randomValue < 90)
         {
-            return 4; // 30% 확률로 축축한 동굴
+            return 4; // 30% 확률로 축축한 동굴(조우확률은 50%) 로 10층당 3번의 조우를 하도록 설계.
         }
         else
         {
             if (RoomNum <= 2)//테스팅 용도로 일단은 2번째 방까지만.
                 return stageType; // 만약 13번째 방 이전 이라면, 함수를 다시 호출.
 
-            return 8; // 10% 확률로 선택지 스테이지
+            return 8; // 15% 확률로 선택지 스테이지 or 스토리 스테이지.
         }
     }
     void StartStageEvent()//스테이지의 이벤트 시작.
@@ -232,16 +233,21 @@ public class StageManager : MonoBehaviour
         {
             StageList[stageType].buttons[i].interactable = false;
         }//버튼 비활성화.
-        //임시로 다음 스테이지로 이동 넣음. 추후 확률에 따른 도망 or 즉시 전투 진행 넣기.
-        Debug.Log("도망 (임시로 무조건 도망 성공)");
-        for (int i = 0; i < StageList[stageType].buttons.Count; i++)
+        //속도 상관없이 그냥 50%확률로 성공실패 결정.
+        if(random.Next(0, 100) < 50)
         {
-            StageList[stageType].buttons[i].interactable = false;
-        }//버튼 비활성화.
-        Ismoving();//다음 스테이지의 버튼 비활성화.
-        RoomNum++;
-        NextStageRandom();
-        UpdateStageFlee();
+            //도망 성공 + 몬스터 제거
+            monsterManager.FleeCombat();//도망시 몬스터 비활성화.
+            Ismoving();//다음 스테이지의 버튼 비활성화.
+            RoomNum++;
+            UpdateStageFlee();//도망 이벤트 시작.
+        }
+        else
+        {
+            //도망 실패.
+            StartCombat();//전투 시작.
+        }
+
     }
     public void Ismoving()//움직이는 버튼을 누를 경우, 다음 스테이지의 버튼을 일서적으로 누를 수 없게 만듬
     {
@@ -293,6 +299,7 @@ public class StageManager : MonoBehaviour
             StageList[4].GetComponent<DampCave>().StartCombat();
             StageList[4].buttons[3].interactable = false;
         }
+        //버튼 전부 비활성화 + 카드 시스템 활성화.
     }
     public void EatMonsterMeat()//몬스터 고기를 먹는다.
     {

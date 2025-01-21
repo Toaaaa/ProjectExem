@@ -7,6 +7,9 @@ public class PartyBuffState : StateMachineBehaviour
     public string triggerName;
     public Joanna joanna;
     public Rei rei;
+    public bool isJoanna;//해당 버프가 조안나에게도 적용 되는지
+    public bool isRei;//해당 버프가 레이에게도 적용 되는지
+
     private void Awake()
     {
         joanna = GameObject.FindWithTag("Joanna").GetComponent<Joanna>();
@@ -15,7 +18,13 @@ public class PartyBuffState : StateMachineBehaviour
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        joanna.extraSkills[1].GetComponent<Animator>().SetTrigger(triggerName);
-        rei.extraSkills[1].GetComponent<Animator>().SetTrigger(triggerName);
+        if(isJoanna)
+        {
+            joanna.extraSkills[1].GetComponent<Animator>().SetTrigger(triggerName);
+        }
+        if(isRei)
+        {
+            rei.extraSkills[1].GetComponent<Animator>().SetTrigger(triggerName);
+        }
     }
 }

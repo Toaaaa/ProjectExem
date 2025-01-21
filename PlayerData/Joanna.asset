@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 065ea2ad16e533c42bc45632830ef58e, type: 3}
   m_Name: Joanna
   m_EditorClassIdentifier: 
-  currentHealth: 10
-  maxHealth: 10
+  currentHealth: 20
+  maxHealth: 20
   attackPower: 5
-  defense: 10
+  defense: 5
   speed: 10
   stamina: 10
   maxStamina: 10
@@ -29,6 +29,6 @@ MonoBehaviour:
   isShielded: 0
   shieldTime: 0
   upgradeCount: 0
-  originMaxHealth: 10
+  originMaxHealth: 20
   originAttackPower: 5
-  originDefense: 10
+  originDefense: 5

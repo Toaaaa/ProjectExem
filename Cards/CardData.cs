@@ -44,7 +44,7 @@ public class CardData : ScriptableObject
 [System.Serializable]
 public class CardEffect//카드 사용시 해당 클래스의 데이터를 참고하여 CardManager의 개별 메서드에서 효과를 적용시킴.
 {
-    public enum EffectType { Damage, Block, Heal, Buff, Stun, Invincible, Burn, Electric, Slowed, DamageWithHeal}//invincible은 시전시 일정시간동안 무적이 됨.
+    public enum EffectType { Damage, Block, Heal, Buff, Stun, Invincible, Burn, Electric, Slowed, DamageWithHeal,Mana}//invincible은 시전시 일정시간동안 무적이 됨.
     public EffectType effectType;
     public int value; //효과의 수치 (param1 * character의 공격력) //카드가 prefab으로 생성될 때, 이 값을 초기화 해줌.
     public float duration;

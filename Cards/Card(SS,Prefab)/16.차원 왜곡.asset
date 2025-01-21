@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90545aa3acac0734b92a052d6e2687d0, type: 3}
   m_Name: "16.\uCC28\uC6D0 \uC65C\uACE1"
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 0}
   cardType: 0
   cardUseSubject: 2
   cardID: 16
@@ -32,4 +33,8 @@ MonoBehaviour:
   - tagType: 0
   - tagType: 1
   - tagType: 2
-  islocked: 1
+  islocked: 0
+  fastMultiAttack: 0
+  skillAttackCount: 0
+  SkillDamageTime: 0
+  SkillDamage: 0

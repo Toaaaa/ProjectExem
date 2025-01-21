@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class DampCave : Stage
 {
+    StageManager stageManager;
     public bool isMonster;//몬스터가 있는지 없는지.
     public bool monsterSpanwed;//몬스터가 등장했는지 여부 >> 전투시작
     public bool isSearch;//탐색을 했는지 여부.
     public bool isClear;//스테이지 클리어 여부.
-    public float monsterEncounterRate = 60f;//몬스터 등장 확률.(처음 입장시, 탐색시, 도주시 해당 수치를 기반으로 몬스터를 등장시킴) 85%로 설정.
+    public float monsterEncounterRate = 50f;//몬스터 등장 확률.(처음 입장시, 탐색시, 도주시 해당 수치를 기반으로 몬스터를 등장시킴) 50%로 설정.
 
 
     public int stateCondition;//해당 스테이지 에서의 상태. 0: 처음 입장(몬스터 등장x), 1: 처음 입장(몬스터 등장o), 2:탐색후, 3:전투후 4:전투 패배.
@@ -19,7 +20,7 @@ public class DampCave : Stage
     protected override void OnEnable()
     {
         base.OnEnable();
-
+        stageManager = GameManager.Instance.stageManager;
         isClear = false;
         isSearch = false;
         monsterSpanwed = false;
@@ -177,14 +178,16 @@ public class DampCave : Stage
             //몬스터가 없는 방.
         }
     }
-    void SpawnMonster()
+    void SpawnMonster()//몬스터 등장. //아직 전투 시작전
     {
         monsterSpanwed = true;
+        stageManager.monsterManager.SpawnMonster(stageManager.RoomNum);
         Debug.Log("몬스터 등장");
     }
     public void StartCombat()//전투 시작.
     {
         GameManager.Instance.stageManager.duringCombat = true;
+        stageManager.monsterManager.StartCombat();
         Debug.Log("전투 시작");
         //전투 시작.
     }
