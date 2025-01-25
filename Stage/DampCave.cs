@@ -11,7 +11,7 @@ public class DampCave : Stage
     public bool monsterSpanwed;//몬스터가 등장했는지 여부 >> 전투시작
     public bool isSearch;//탐색을 했는지 여부.
     public bool isClear;//스테이지 클리어 여부.
-    public float monsterEncounterRate = 50f;//몬스터 등장 확률.(처음 입장시, 탐색시, 도주시 해당 수치를 기반으로 몬스터를 등장시킴) 50%로 설정.
+    public float monsterEncounterRate;//몬스터 등장 확률.(처음 입장시, 탐색시, 도주시 해당 수치를 기반으로 몬스터를 등장시킴) 57%로 설정.
 
 
     public int stateCondition;//해당 스테이지 에서의 상태. 0: 처음 입장(몬스터 등장x), 1: 처음 입장(몬스터 등장o), 2:탐색후, 3:전투후 4:전투 패배.
@@ -144,10 +144,10 @@ public class DampCave : Stage
         }
     }
 
-    bool MonsterPossibility()//몬스터와 조우
+    bool MonsterPossibility()//몬스터와 조우 monsterEncounterRate 로 몬스터의 존재 여부 결정.
     {
         Random.InitState(System.DateTime.Now.Millisecond);
-        float a = 35 + GameManager.Instance.stageManager.RoomNum * 0.5f - 15;//스테이지가 올라갈수록 몬스터 등장 확률이 올라감.(기본 35퍼센트 - 축축동굴 15퍼센트 감소)
+        float a = monsterEncounterRate;
         if (Random.Range(0, 100) <= a ? true : false)
         {
             return true;
@@ -164,7 +164,7 @@ public class DampCave : Stage
 
         if (isMonster)//몬스터가 있는 방
         {
-            if (Random.Range(0, 100) <= monsterEncounterRate ? true : false)//monsterEncounterRate의 확률로 몬스터 등장.
+            if (Random.Range(0, 100) <= 89 ? true : false)//89 % 의 확률로 몬스터 등장. 따라서 실제로 몬스터와 조우할 확률은 50%.
             {
                 SpawnMonster();
             }
@@ -209,7 +209,7 @@ public class DampCave : Stage
         //찾는 모션 >> 1.몬스터 조우, 2 아이템 발견 ui
         if (isMonster)//몬스터가 있는 방
         {
-            if (Random.Range(0, 100) <= monsterEncounterRate ? true : false)//몬스터 조우 
+            if (Random.Range(0, 100) <= 50 ? true : false)//첫 인카운터에서 몬스터와 조우하지 않았을 경우 탐색시 50%확률로 몬스터 조우.
             {
                 buttons[1].interactable = true;//탐색 도중 조우시 탐색 버튼 재활성화.
                 SpawnMonster();

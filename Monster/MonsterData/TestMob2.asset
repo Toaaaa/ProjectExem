@@ -17,3 +17,8 @@ MonoBehaviour:
   healthValue: 2
   expectedDPS: 20
   extraDefense: 0
+  monsterSkillList:
+  - monsterSkillData: {fileID: 11400000, guid: 01092c8962727794ab247cb4a552176a, type: 2}
+    skillChance: 50
+  - monsterSkillData: {fileID: 11400000, guid: 7fa2cd1b578223f4c9b768873827c943, type: 2}
+    skillChance: 50

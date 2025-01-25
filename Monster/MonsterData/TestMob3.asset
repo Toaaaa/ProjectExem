@@ -15,5 +15,10 @@ MonoBehaviour:
   monsterName: t3
   MonsterID: 2
   healthValue: 3
-  expectedDPS: 30
+  expectedDPS: 0
   extraDefense: 2
+  monsterSkillList:
+  - monsterSkillData: {fileID: 11400000, guid: 01092c8962727794ab247cb4a552176a, type: 2}
+    skillChance: 50
+  - monsterSkillData: {fileID: 11400000, guid: 74f7767a89c1e6f4baacb81e542f27f7, type: 2}
+    skillChance: 50

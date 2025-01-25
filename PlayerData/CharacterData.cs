@@ -30,7 +30,8 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
         shieldTime = characterData.shieldTime;
     }
 
-    public int currentHealth;
+    public float currentHealth;//보이는 표시는 int로 보이지만 실제로는 float 계산,
+    //그리고 실제로 변화된 float값이 표기되는 int값의 변화량 만큼 데미지 print에서도 보여준다 (데미지print 는 보이는 int 값 기준으로 표기)
     public int maxHealth;
     public int attackPower;
     public int defense;
