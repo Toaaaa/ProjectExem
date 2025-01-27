@@ -8,9 +8,11 @@ using UnityEngine;
 
 public class MonsterObject : MonoBehaviour
 {
+
     //체력바
     //애니메이션
     //버프 디버프 표시
+    public Action skillOnWaiting;
     public MonsterData monsterData;
     public string monsterName;
     public int MonsterID;
@@ -79,7 +81,12 @@ public class MonsterObject : MonoBehaviour
     }
     void MonsterDie()
     {
-        Debug.Log("Monster Die");
+        //몬스터 사망시 스킬 토큰 취소.
+        skillCts?.Cancel();
+        skillCts?.Dispose();
+        skillCts = null;
+        //몬스터 사망 애니메이션.
+        //끝나면 몬스터 오브젝트 비활성화.
         gameObject.SetActive(false);
     }
     void SkillQueSet()//스킬 큐에 3개의 스킬을 정해진 확률에 따라 넣어준다.
@@ -132,9 +139,14 @@ public class MonsterObject : MonoBehaviour
 
             if (token.IsCancellationRequested) return; // 토큰이 취소되었으면 실행 중단
 
-            // 스킬 발동 (실제 사용,애니메이션, SFX 등)
-            Debug.Log($"{gameObject.name} uses {skillQue[0].skillName}");
-            skillQue[0].UseSkill();
+            // 스킬 발동 (애니메이션, SFX 등)
+            Debug.Log($"{skillQue[0].skillName} 애니메이션 및 효과");
+            // 스킬의 실제 기능 저장()
+            skillOnWaiting = () => //skillOnWaiting을 사용하려면 skillOnWaiting.Invoke()로 사용후 = null 로 초기화. (skillOnWaiting 의 null 체킹 후 사용)
+            {
+                Debug.Log($"{gameObject.name} uses {skillQue[0].skillName}");
+                skillQue[0].UseSkill(attackPower);
+            };
 
             // 스킬 큐를 한 칸씩 당기고 새로운 스킬 추가
             MonsterSkillData[] nextQue = { skillQue[1], skillQue[2], null };

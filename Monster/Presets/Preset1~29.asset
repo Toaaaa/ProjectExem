@@ -22,25 +22,21 @@ MonoBehaviour:
   - monstersData:
     - {fileID: 11400000, guid: 84f857867cbef2a4d90aa8f9dfe33a8e, type: 2}
     - {fileID: 11400000, guid: 7f5dd2fd4b85790429f01665ef6f581f, type: 2}
-    - {fileID: 11400000, guid: 44508799f47988842a77053f21b97fc7, type: 2}
     spawnChance: 5
     isEliteCombat: 0
   - monstersData:
     - {fileID: 11400000, guid: 84f857867cbef2a4d90aa8f9dfe33a8e, type: 2}
     - {fileID: 11400000, guid: 7f5dd2fd4b85790429f01665ef6f581f, type: 2}
-    - {fileID: 11400000, guid: 44508799f47988842a77053f21b97fc7, type: 2}
     spawnChance: 10
     isEliteCombat: 0
   - monstersData:
     - {fileID: 11400000, guid: 84f857867cbef2a4d90aa8f9dfe33a8e, type: 2}
     - {fileID: 11400000, guid: 7f5dd2fd4b85790429f01665ef6f581f, type: 2}
-    - {fileID: 11400000, guid: 44508799f47988842a77053f21b97fc7, type: 2}
     spawnChance: 10
     isEliteCombat: 0
   - monstersData:
     - {fileID: 11400000, guid: 84f857867cbef2a4d90aa8f9dfe33a8e, type: 2}
     - {fileID: 11400000, guid: 7f5dd2fd4b85790429f01665ef6f581f, type: 2}
-    - {fileID: 11400000, guid: 44508799f47988842a77053f21b97fc7, type: 2}
     spawnChance: 10
     isEliteCombat: 0
   - monstersData:
