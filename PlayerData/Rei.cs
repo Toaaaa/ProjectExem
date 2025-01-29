@@ -8,8 +8,10 @@ public class Rei : CharacterData
     public GameObject[] skillObject;//사용중의 여부는 해당 오브젝트의 animator의 isCasting bool값을 통해 확인.
     public Animator reiPersonal;//레이의 개인 스킬 애니메이터.
 
-    private void Update()
+    void Update()
     {
+        HpStaminaUpdate();
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             GetComponent<Animator>().SetTrigger("Skill13");

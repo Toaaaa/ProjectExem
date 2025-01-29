@@ -47,7 +47,7 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
     public bool isBurning;
     public bool isFrozen;
     public bool isShielded;
-    public int shieldTime;//쉴드 남은시간
+    public int shieldTime;
 
 
     //////////////////////////////////////
@@ -67,14 +67,18 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
     public ExtraSkill[] extraSkills;//플레이어가 사용할 수 있는 추가 스킬들을 저장하는 배열.//주로 버프 형식의 이펙트
     public bool isMagicShield;//마법방어막이 활성화 되어있는지 확인하는 변수.
 
-
     private void Awake()
-    {
+    {       
         isMagicShield = false;
     }
-    private void Update()
-    {
 
+    protected void HpStaminaUpdate()//체력 스테미나 업데이트.
+    {
+        if(currentHealth <= 0)
+        {
+            currentHealth = 0;
+            isDead = true;
+        }
         if (hpBar.value != currentHealth / maxHealth)
         {
             PlayerHpUpdate();
@@ -85,8 +89,6 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
         }
         hpText.text = (int)currentHealth + "/" + maxHealth;
         staminaText.text = (int)stamina + "/" + maxStamina;
-
-
     }
 
     private void PlayerHpUpdate()
@@ -113,9 +115,6 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
     }
     IEnumerator HpReduce()
     {
-        //체력바 줄이기.
-        if (OnShake == false)
-            StartCoroutine(HpBarShake());
         while (hpBar.value > currentHealth / maxHealth)
         {
             hpBar.value -= 0.001f;
@@ -171,13 +170,9 @@ public class CharacterData : MonoBehaviour //조안나와 레이에게 상속시켜줄 캐릭터
     }
 
 
-    IEnumerator HpBarShake()//피해를 입었을때 체력바 흔들리는 효과
+    public void HpBarShake()//피해를 입었을때 체력바 흔들리는 효과
     {
-        Debug.Log("데미지 입음");
-        OnShake = true;
         hpBar.gameObject.transform.DOPunchPosition(new Vector3(5.5f, 0, 0), 1f, 10, 1);
-        yield return new WaitForSeconds(1f);
-        OnShake = false;
     }
 
 }

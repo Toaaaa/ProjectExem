@@ -10,8 +10,10 @@ public class Joanna : CharacterData
 {
     private bool isResetting;//트리거의 리셋 상태 확인.
 
-    private void Update()
+    void Update()
     {
+        HpStaminaUpdate();
+
         if (Input.GetKeyDown(KeyCode.F5))
         {
             skill2Test();

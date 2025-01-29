@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c49ca433a5ce14840a8ab6ab18406a84, type: 3}
   m_Name: Bite+1
   m_EditorClassIdentifier: 
+  animCon: {fileID: 9100000, guid: c0b8efdcc6fdfed4da493c127ac19243, type: 2}
+  skillStartDelay: 0
   skillName: Bite+1
   damage: 25
   cost: 5
+  skillTarget: 2

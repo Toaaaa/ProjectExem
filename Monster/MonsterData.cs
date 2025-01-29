@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewMonster", menuName = "Monster System/Monster Data")]
 public class MonsterData : ScriptableObject
 {
+    public RuntimeAnimatorController animCon;//몬스터의 컨트롤러
     public string monsterName;
     public int MonsterID;
     public int healthValue;//몬스터의 체력 계수. 해당계수의 각 비율만큼 HP총합 보정치를 나눠서 배치.(기본이 1,몬스터의 등급에 따라 1~3정도로 설정)
