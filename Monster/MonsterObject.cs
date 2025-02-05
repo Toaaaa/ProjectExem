@@ -118,7 +118,6 @@ public class MonsterObject : MonoBehaviour
                 if (random < sum)
                 {
                     skillQue[i] = skills.monsterSkillData;
-                    Debug.Log(gameObject.name + " : " + skillQue[i].skillName);
                     break;
                 }
             }

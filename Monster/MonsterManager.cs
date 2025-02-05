@@ -83,7 +83,6 @@ public class MonsterManager : MonoBehaviour
             if (random < sum)
             {
                 preset.SetPresetMob(index);//대항 확률의 프리셋 몬스터를 생성한다.
-                Debug.Log($"sum : {sum}");
                 return;
             }
             index++;

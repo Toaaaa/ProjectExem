@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a2a884fd7f4844c90a0b599f6f4850, type: 3}
   m_Name: NormalAttack
   m_EditorClassIdentifier: 
-  animCon: {fileID: 9100000, guid: c0b8efdcc6fdfed4da493c127ac19243, type: 2}
+  animCon: {fileID: 9100000, guid: a652ae1d9caf57c42ae710c9bfda81e1, type: 2}
   skillStartDelay: 0
   skillName: Normal Attack
   damage: 5
   cost: 2.5
-  skillNum: 0
+  skillTarget: 0

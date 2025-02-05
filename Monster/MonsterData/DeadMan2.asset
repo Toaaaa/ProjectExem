@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3df6fdea3f89c54280578f0b435c934, type: 3}
-  m_Name: TestMob1
+  m_Name: DeadMan2
   m_EditorClassIdentifier: 
-  animCon: {fileID: 9100000, guid: 494e426238403d249a4b6a2fd06b173d, type: 2}
-  monsterName: t1
-  MonsterID: 0
-  healthValue: 1
-  expectedDPS: 10
+  animCon: {fileID: 9100000, guid: 6fe072a1f2a4e484b9795cb04a1fe181, type: 2}
+  monsterName: t2
+  MonsterID: 1
+  healthValue: 2
+  expectedDPS: 20
   extraDefense: 0
   monsterSkillList:
   - monsterSkillData: {fileID: 11400000, guid: 01092c8962727794ab247cb4a552176a, type: 2}
-    skillChance: 100
+    skillChance: 50
+  - monsterSkillData: {fileID: 11400000, guid: 7fa2cd1b578223f4c9b768873827c943, type: 2}
+    skillChance: 50

@@ -58,7 +58,18 @@ public class MonsterSkillData : ScriptableObject
                 }
                 break;
             case 2://범위
-                fx.transform.position = new Vector3((joan.transform.position.x + rei.transform.position.x)/2, joan.transform.position.y, 0);//조안나와 레이의 중간지점.
+                if (rei.isDead)//조안나만 살아있을경우    
+                {
+                    fx.transform.position = GameManager.Instance.characterManager.Joanna.transform.position;
+                }
+                else if (joan.isDead)//레이만 살아있을경우
+                {
+                    fx.transform.position = GameManager.Instance.characterManager.Rei.transform.position;
+                }
+                else//둘다 살아있 거나 둘다 사망
+                {
+                    fx.transform.position = new Vector3((joan.transform.position.x + rei.transform.position.x) / 2, joan.transform.position.y, 0);//조안나와 레이의 중간지점.
+                }
                 break;
             default:
                 break;

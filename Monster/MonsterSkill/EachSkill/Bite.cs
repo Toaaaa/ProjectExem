@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Bite", menuName = "Monster Skill/Bite")]
-public class Bite : MonsterSkillData
+public class Bite : MonsterSkillData //ëª¸í†µ ë°•ì¹˜ê¸°ë¡œ êµì²´í•¨.
 {
     public override void UseSkill(float atkPower,GameObject skillFx)
     {
         base.UseSkill(atkPower,skillFx);
-        //¹°¾î¶â±â ½ºÅ³·Î, ¸ó½ºÅÍÀÇ ±âº» °ø°İ·ÂÀÇ 1.5¹è¸¸Å­ÀÇ µ¥¹ÌÁö¸¦ ÀÔÈù´Ù.
+        //ë¬¼ì–´ëœ¯ê¸° ìŠ¤í‚¬ë¡œ, ëª¬ìŠ¤í„°ì˜ ê¸°ë³¸ ê³µê²©ë ¥ì˜ 1.5ë°°ë§Œí¼ì˜ ë°ë¯¸ì§€ë¥¼ ì…íŒë‹¤.
         Debug.Log("Bite Skill Used");
     }
 }
